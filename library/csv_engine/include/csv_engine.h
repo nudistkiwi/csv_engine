@@ -10,19 +10,18 @@ class csv_file
 {
 public:
 typedef string::iterator siterator;
-
 void index();
 //void clean();
-//csv_file(char *filename);
+csv_file(char *filename);
 csv_file(string input);
-//void write(char* filename);
-//string cell(int i,int j);
+void write(char* filename);
+string cell(int i,int j);
 //void read(char *filename);
-//void show_header();
-//int Nrows();	
-//int Ncols();
-//bool OK();
-//void transponse();
+void show_header();
+int Nrows();	
+int Ncols();
+bool OK();
+void transponse();
 //void delete_lines(vector<int>& lines);
 //void delete_row(vector<int>& Drows);
 //void delete_col(vector<int>& Dcols);
