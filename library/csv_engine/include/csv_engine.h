@@ -28,7 +28,6 @@ void transponse();
 //void check();
 //void status();
 //bool operator==(const csv_file & rhs);
-
 private:
 string file;
 string file_temp;

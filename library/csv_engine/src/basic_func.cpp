@@ -53,7 +53,6 @@ csv_file::csv_file(char *filename)
 
 	}
 
-
 std::string csv_file::cell(int i,int j)
 	{
  		if(j>cols){j=cols;}
