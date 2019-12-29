@@ -14,8 +14,8 @@ void csv_file::index()
 	indices.push_back(iter);
 	for(iter=file.begin();iter!=file.end(); ++iter)
 	{	
-	//if('\n'!=*iter){std::cout<<*iter;}
-	if(';'==*iter){indices.push_back(iter);++i;//std::cout<<std::endl;
+	if('\n'!=*iter && ';'!=*iter){std::cout<<*iter;}
+	if(';'==*iter){indices.push_back(iter);++i;std::cout<<std::endl;
 	}
 	if('\n'==*iter)
 		{
@@ -24,11 +24,11 @@ void csv_file::index()
 	if(cols!=i && cols<0){cols=i;}
 	if(cols!=i && cols>0){file_is_OK=false;cols=i;}
 	i=1;
-	//std::cout<<std::endl;
+	std::cout<<std::endl;
 	//std::cout<<cols<<std::endl;
 		}
 	}
-	--rows;
+	//--rows;
 	if(file_is_OK) std::cout<<"OK"<<std::endl;
 	else std::cout<<"KO"<<std::endl;
 }
@@ -65,6 +65,7 @@ csv_file::csv_file(char *filename)
 
 std::string csv_file::cell(int i,int j)
 	{
+		try {
  		if(j>cols){j=cols;}
  		if(i>rows){i=rows;}
  		int k=cols*(i-1)+(j-1);
@@ -73,6 +74,9 @@ std::string csv_file::cell(int i,int j)
  		siterator end=indices[k+1];
  		std::string A(start,end);
  		return(A);
+		 throw 99;
+		  }
+		catch(int x) {  return "some error";}  
 	}
 
 void csv_file::show_header()
