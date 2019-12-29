@@ -145,3 +145,60 @@ for(i=1;i<=rows;i++)
 	std::cout<<std::endl;
 	}
 }
+
+void delete_lr(vector<int>& dcolumns,vector<int>& drows)
+{
+sort(drows.begin(),drows.end());
+sort(dcolumns.begin(),dcolumns.end());
+vector<int> x;
+vector<int> y;
+
+int k=0;
+int i=0;
+while(i<cols){
+if()dcolumns[k]
+
+i++;
+}
+
+file_temp.reserve(file.size());
+	int i,j;	
+	for(i=1;i<=cols;++i)
+	{
+		for(j=1;j<=rows;++j)
+		{
+		//	std::cout<<cell(j,i)<<" ";
+			file_temp.append(cell(i,j));
+			file_temp.append(";");
+		}
+	file_temp.append("\n");
+	}
+file=file_temp;
+file_temp.clear();
+index();
+
+
+}
+
+/*
+void delete_lines(vector<int>& lines)
+{
+int k;
+siterator sbegin;
+siterator send;
+file_temp.clear();
+file_temp.reserve(file.size());
+sort(lines.begin(),lines.end());
+sbegin=file.begin();
+for(int i=0;i<lines.size();++i){
+k=cols*(lines[i]-1);
+send=indices[k];
+file_temp.append(sbegin,send);
+k=cols*(lines[i]);
+sbegin=indices[k];
+
+}
+send=file.end();
+file_temp.append(sbegin,send);
+}
+*/
