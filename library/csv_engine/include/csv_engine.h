@@ -9,19 +9,20 @@
 class csv_file 
 {
 public:
-typedef string::iterator siterator;
+typedef std::string::iterator siterator;
 void index();
 //void clean();
 csv_file(char *filename);
-csv_file(string input);
+csv_file(std::string input);
 void write(char* filename);
-string cell(int i,int j);
+std::string cell(int i,int j);
 //void read(char *filename);
 void show_header();
 int Nrows();	
 int Ncols();
 bool OK();
 void transponse();
+void print();
 //void delete_lines(vector<int>& lines);
 //void delete_row(vector<int>& Drows);
 //void delete_col(vector<int>& Dcols);
@@ -29,9 +30,9 @@ void transponse();
 //void status();
 //bool operator==(const csv_file & rhs);
 private:
-string file;
-string file_temp;
-vector<siterator> indices;
+std::string file;
+std::string file_temp;
+std::vector<siterator> indices;
 bool  primary_key_unique;
 int rows,cols;	
 bool file_is_OK;

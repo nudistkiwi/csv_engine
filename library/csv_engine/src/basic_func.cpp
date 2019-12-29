@@ -1,8 +1,9 @@
-#include <csv_engine.h>
-//#include "csv_engine.h"
+//#include <csv_engine.h>
+#include "csv_engine.h"
 
 void csv_file::index()
-{int 	k;
+{	std::cout<<"Indexing File...";
+	int k;
 	int i=1;
 	cols=-1;
 	rows=1;
@@ -12,15 +13,24 @@ void csv_file::index()
 	--iter;
 	indices.push_back(iter);
 	for(iter=file.begin();iter!=file.end(); ++iter)
-	{//cout<<*iter;	
-	if(';'==*iter){indices.push_back(iter);++i;}
-	if('\n'==*iter){++rows;
+	{	
+	//if('\n'!=*iter){std::cout<<*iter;}
+	if(';'==*iter){indices.push_back(iter);++i;//std::cout<<std::endl;
+	}
+	if('\n'==*iter)
+		{
+	++rows;
 	indices.push_back(iter);
 	if(cols!=i && cols<0){cols=i;}
 	if(cols!=i && cols>0){file_is_OK=false;cols=i;}
-	i=1;}
+	i=1;
+	//std::cout<<std::endl;
+	//std::cout<<cols<<std::endl;
+		}
 	}
 	--rows;
+	if(file_is_OK) std::cout<<"OK"<<std::endl;
+	else std::cout<<"KO"<<std::endl;
 }
 
 
@@ -33,7 +43,7 @@ csv_file::csv_file(std::string input)
 csv_file::csv_file(char *filename)
 {	
 	int N;
-	ifstream input(filename);
+	std::ifstream input(filename);
 	input.seekg(0,input.end);
 	N=input.tellg();
 	input.seekg(0,input.beg);
@@ -94,12 +104,13 @@ bool csv_file::OK()
 
 void csv_file::transponse() 
 {
-	file_temp.reserve(file.size());
+	file_temp.reserve(2*file.size());
 	int i,j;	
 	for(i=1;i<=cols;++i)
 	{
 		for(j=1;j<=rows;++j)
 		{
+			std::cout<<cell(i,j)<<" ";
 			file_temp.append(cell(i,j));
 			file_temp.append(";");
 		}
@@ -107,4 +118,21 @@ void csv_file::transponse()
 	}
 file=file_temp;
 file_temp.clear();
+
+cols=j;
+cols=rows;
+rows=j;
+
+}
+
+void csv_file::print()
+{int i,j;
+for(i=1;i<=rows;++i)
+	{
+		for(j=1;j<=cols;++j)
+		{
+			std::cout<<cell(i,j)<<" ";
+		}
+	std::cout<<std::endl;
+	}
 }
