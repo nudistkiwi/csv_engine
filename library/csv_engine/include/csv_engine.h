@@ -23,6 +23,7 @@ int Ncols();
 bool OK();
 void transponse();
 void print();
+void delete_lr(vector<int>& dcolumns,vector<int>& drows);
 //void delete_lines(vector<int>& lines);
 //void delete_row(vector<int>& Drows);
 //void delete_col(vector<int>& Dcols);
