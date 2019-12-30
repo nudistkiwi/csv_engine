@@ -154,21 +154,30 @@ vector<int> x;
 vector<int> y;
 
 int k=0;
-int i=0;
-while(i<cols){
-if()dcolumns[k]
-
+int i=1;
+while(i<rows){
+if(i==drows[k]){k++; while(drows[k-1]==drows[k]){k++;} }    
+else {x.push_back(i);}
 i++;
 }
 
+k=0;
+i=1;	
+while(i<cols){
+if(i==dcolumns[k]){k++; while(dcolumns[k-1]==dcolumns[k]){k++;} }    
+else {y.push_back(i);}
+i++;
+}
+	
+	
 file_temp.reserve(file.size());
 	int i,j;	
-	for(i=1;i<=cols;++i)
+	for(i=0;i<=x.size();++i)
 	{
-		for(j=1;j<=rows;++j)
+		for(j=0;j<y.size();++j)
 		{
 		//	std::cout<<cell(j,i)<<" ";
-			file_temp.append(cell(i,j));
+			file_temp.append(cell(x[i],[j]));
 			file_temp.append(";");
 		}
 	file_temp.append("\n");
