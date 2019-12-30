@@ -23,12 +23,9 @@ int Ncols();
 bool OK();
 void transponse();
 void print();
-void delete_lr(std::vector<int>& dcolumns,std::vector<int>& drows);
-//void delete_lines(vector<int>& lines);
-//void delete_row(vector<int>& Drows);
-//void delete_col(vector<int>& Dcols);
-//void check();
-//void status();
+void delete_cr(std::vector<int>& dcolumns,std::vector<int>& drows);
+void check();
+void status();
 //bool operator==(const csv_file & rhs);
 private:
 std::string file;

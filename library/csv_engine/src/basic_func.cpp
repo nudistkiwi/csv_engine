@@ -1,5 +1,5 @@
 //#include <csv_engine.h>
-#include "csv_engine.h"
+#include "D:\repos\cpp_projects\csv_engine\library\csv_engine\include\csv_engine.h"
 
 void csv_file::index()
 {	std::cout<<"Indexing File...";
@@ -146,16 +146,18 @@ for(i=1;i<=rows;i++)
 	}
 }
 
-void csv_file::delete_lr(std::vector<int>& dcolumns,std::vector<int>& drows)
+void csv_file::delete_cr(std::vector<int>& dcolumns,std::vector<int>& drows)
 {
+	
 std::sort(drows.begin(),drows.end());
 std::sort(dcolumns.begin(),dcolumns.end());
 std::vector<int> x;
 std::vector<int> y;
 
+
 int k=0;
 int i=1;
-while(i<rows){
+while(i<=rows){
 if(i==drows[k]){k++; while(drows[k-1]==drows[k]){k++;} }    
 else {x.push_back(i);}
 i++;
@@ -163,21 +165,21 @@ i++;
 
 k=0;
 i=1;	
-while(i<cols){
+while(i<=cols){
 if(i==dcolumns[k]){k++; while(dcolumns[k-1]==dcolumns[k]){k++;} }    
 else {y.push_back(i);}
 i++;
 }
 	
-	
+
 file_temp.reserve(file.size());
-	int i,j;	
-	for(i=0;i<=x.size();++i)
+	int j;	
+	for(i=0;i<x.size();++i)
 	{
 		for(j=0;j<y.size();++j)
 		{
 		//	std::cout<<cell(j,i)<<" ";
-			file_temp.append(cell(x[i],[j]));
+			file_temp.append(cell(x[i],y[j]));
 			file_temp.append(";");
 		}
 	file_temp.append("\n");
@@ -189,25 +191,58 @@ index();
 
 }
 
-/*
-void delete_lines(vector<int>& lines)
+
+void csv_file::check()
 {
+size=sizeof(char)*file.size();
+int i=1;
 int k;
-siterator sbegin;
-siterator send;
-file_temp.clear();
-file_temp.reserve(file.size());
-sort(lines.begin(),lines.end());
-sbegin=file.begin();
-for(int i=0;i<lines.size();++i){
-k=cols*(lines[i]-1);
-send=indices[k];
-file_temp.append(sbegin,send);
-k=cols*(lines[i]);
-sbegin=indices[k];
+int duplicates;
+primary_key_unique=true; 
+std::vector<std::string> primary;
+for(int i=2;i<=rows;++i){
+primary.push_back(cell(1,i));
+}
+std::sort(primary.begin(),primary.end());
+
+for(int i=2;i<rows;++i) {
+if(primary[i]==primary[i+1]){primary_key_unique=false; ++duplicates;}
+			}
+siterator iter;
+int rowc=0;
+int colc=0;
+std::vector<int> row_cols;
+for(iter=file.begin();iter!=file.end();++iter){
+if(*iter==';'){++colc;}
+if(*iter=='\n'){colc=0;row_cols.push_back(colc);}
+}
+
+std::sort(row_cols.begin(),row_cols.end());
+if(row_cols.front()==row_cols.back()){file_is_OK=true;}
 
 }
-send=file.end();
-file_temp.append(sbegin,send);
+
+void csv_file::status(){
+double  nice_size;
+int i=0;
+std::vector<std::string> Byte;
+Byte.push_back("Bytes");
+Byte.push_back("KiloBytes");
+Byte.push_back("MegaBytes");
+Byte.push_back("GigaBytes");
+
+std::cout<<"primary key is unique...."<<primary_key_unique<<std::endl;
+std::cout<<"file is healthy...."<<file_is_OK<<std::endl;
+std::cout<<"file has size...";
+nice_size=size;
+while(nice_size>1000 && i<4)
+{
+nice_size=nice_size/1000;
+++i;
 }
+std::cout<<nice_size<<" "<<Byte[i]<<std::endl;
+std::cout<<"rows.."<<rows<<"  colums..."<<cols<<std::endl;
+/*cout<<"file has uncomitted changes";
+//cout<<"number of changes";
 */
+}
