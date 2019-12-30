@@ -146,12 +146,12 @@ for(i=1;i<=rows;i++)
 	}
 }
 
-void delete_lr(vector<int>& dcolumns,vector<int>& drows)
+void csv_file::delete_lr(std::vector<int>& dcolumns,std::vector<int>& drows)
 {
-sort(drows.begin(),drows.end());
-sort(dcolumns.begin(),dcolumns.end());
-vector<int> x;
-vector<int> y;
+std::sort(drows.begin(),drows.end());
+std::sort(dcolumns.begin(),dcolumns.end());
+std::vector<int> x;
+std::vector<int> y;
 
 int k=0;
 int i=1;
