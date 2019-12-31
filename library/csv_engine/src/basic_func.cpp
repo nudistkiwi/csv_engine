@@ -31,9 +31,9 @@ void csv_file::index()
 			string message;
 			switch(message)
 				{
-				case("x"){for(int p=0;p<cols;p++){indices.pop_back();}break;}
-				case("s"){for(int p=0;p<cols;p++){indices.pop_back();}break;}
-				case("c"){for(int p=0;p<cols;p++){indices.pop_back();}break;}
+				case("x") { for (int p = 0; p < cols; p++) { indices.pop_back(); } iter = indices.back(); break; }
+				case("s"){for(int p=0;p<cols;p++){indices.pop_back();} iter = indices.back(); break;}
+				case("c"){for(int p=0;p<cols;p++){indices.pop_back();} iter = indices.back(); break;}
 				}
 			file_is_OK=false;cols=i;
 			}
