@@ -24,7 +24,19 @@ void csv_file::index()
 	++rows;
 	indices.push_back(iter);
 	if(cols!=i && cols<0){cols=i;}
-	if(cols!=i && cols>0){file_is_OK=false;cols=i;}
+	if(cols!=i && cols>0)
+			{
+			std::cout<<"Error in row "<<row-1<<std::endl;
+			std::cout<<"x..stop,c..cancel,s..skip"<<std::endl;
+			string message;
+			switch(message)
+				{
+				case("x"){for(int p=0;p<cols;p++){indices.pop_back();}break;}
+				case("s"){for(int p=0;p<cols;p++){indices.pop_back();}break;}
+				case("c"){for(int p=0;p<cols;p++){indices.pop_back();}break;}
+				}
+			file_is_OK=false;cols=i;
+			}
 	i=1;
 	//std::cout<<std::endl;
 	//std::cout<<cols<<std::endl;
