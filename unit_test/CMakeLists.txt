@@ -1,2 +1,2 @@
 add_executable(test main.cpp)
-target_add_library()
+target_link_libraries(test csv_engine)

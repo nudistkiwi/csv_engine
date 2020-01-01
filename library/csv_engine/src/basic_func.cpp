@@ -1,5 +1,5 @@
 //#include <csv_engine.h>
-#include "D:\repos\cpp_projects\csv_engine\library\csv_engine\include\csv_engine.h"
+#include <csv_engine.h>
 
 void csv_file::index()
 {	std::cout<<"Indexing File...";
@@ -26,7 +26,7 @@ void csv_file::index()
 	if(cols!=i && cols<0){cols=i;}
 	if(cols!=i && cols>0)
 			{
-			std::cout<<"Error in row "<<row-1<<std::endl;
+		/*	std::cout<<"Error in row "<<row-1<<std::endl;
 			std::cout<<"x..stop,c..cancel,s..skip"<<std::endl;
 			string message;
 			switch(message)
@@ -34,7 +34,7 @@ void csv_file::index()
 				case("x") { for (int p = 0; p < cols; p++) { indices.pop_back(); } iter = indices.back(); break; }
 				case("s"){for(int p=0;p<cols;p++){indices.pop_back();} iter = indices.back(); break;}
 				case("c"){for(int p=0;p<cols;p++){indices.pop_back();} iter = indices.back(); break;}
-				}
+				} */
 			file_is_OK=false;cols=i;
 			}
 	i=1;
