@@ -203,6 +203,48 @@ index();
 
 }
 
+void csv_file::delete_cr(int dcolumns, int drows)
+{
+
+	std::vector<int> x;
+	std::vector<int> y;
+
+
+
+	int i = 1;
+	while (i <= rows) {
+		if (i == drows) {}
+		else { x.push_back(i); }
+		i++;
+	}
+
+
+	i = 1;
+	while (i <= cols) {
+		if (i == dcolumns) {}
+		else { y.push_back(i); }
+		i++;
+	}
+
+
+	file_temp.reserve(file.size());
+	int j;
+	for (i = 0; i < x.size(); ++i)
+	{
+		for (j = 0; j < y.size(); ++j)
+		{
+			//	std::cout<<cell(j,i)<<" ";
+			file_temp.append(cell(x[i], y[j]));
+			file_temp.append(";");
+		}
+		file_temp.append("\n");
+	}
+	file = file_temp;
+	file_temp.clear();
+	index();
+
+
+}
 
 void csv_file::check()
 {
