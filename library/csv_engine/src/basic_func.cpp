@@ -276,7 +276,7 @@ if(row_cols.front()==row_cols.back()){file_is_OK=true;}
 
 }
 
-void csv_file::status(){
+bool csv_file::status(){
 double  nice_size;
 int i=0;
 std::vector<std::string> Byte;
@@ -299,4 +299,6 @@ std::cout<<"rows.."<<rows<<"  colums..."<<cols<<std::endl;
 /*cout<<"file has uncomitted changes";
 //cout<<"number of changes";
 */
+if (primary_key_unique && file_is_OK) return true;
+else return false;
 }

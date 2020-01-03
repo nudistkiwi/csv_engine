@@ -26,7 +26,7 @@ void print();
 void delete_cr(std::vector<int>& dcolumns,std::vector<int>& drows);
 void delete_cr(int, int drows);
 void check();
-void status();
+bool status();
 //bool operator==(const csv_file & rhs);
 private:
 std::string file;
