@@ -302,3 +302,26 @@ std::cout<<"rows.."<<rows<<"  colums..."<<cols<<std::endl;
 if (primary_key_unique && file_is_OK) return true;
 else return false;
 }
+
+void csv_file::loop(std::vector<std::pair<int, int  >> LIST)
+{
+
+	
+
+	file_temp.reserve(file.size());
+	int i,j;
+	for (i = 0; i < LIST.size(); ++i)
+	{
+		
+			file_temp.append(cell(LIST[i].first, LIST[i].second));
+			file_temp.append(";");
+		
+		file_temp.append("\n");
+	}
+	file = file_temp;
+	file_temp.clear();
+	index();
+
+
+
+}
