@@ -124,9 +124,15 @@ std::string  csv_file::cell(int i,int j)
 	//std::cout<<k<<std::endl;
 	siterator start = indices[k];
 	siterator end = indices[k + 1];
-	if(i==1 && j==1) std::string A(start+1, end);
-	else std::string A(start, end);
-	return(A);
+	if (i == 1 && j == 1)
+	{
+		std::string A(start , end);
+		return(A);
+	}
+	else {
+		std::string A(start+1, end);
+		return(A);
+	}
 
 	}
 
