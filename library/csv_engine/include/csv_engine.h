@@ -25,7 +25,7 @@ int Nrows();
 int Ncols();
 bool OK();
 void transponse();
-void transponse0() 
+void transponse0();
 void print();
 void delete_cr(std::vector<int>& dcolumns,std::vector<int>& drows);
 void delete_cr(int, int drows);

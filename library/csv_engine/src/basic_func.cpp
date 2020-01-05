@@ -1,15 +1,7 @@
 //#include <csv_engine.h>
 #include <csv_engine.h>
 
-void cell_iter(int i, int j, siterator& begin, siterator& end) {
-	if (j > cols) { j = cols; }
-	if (i > rows) { i = rows; }
-	int k = cols * (i - 1) + (j - 1);
-	//std::cout<<k<<std::endl;
-	begin = indices[k];
-	end = indices[k + 1];
 
-	}
 
 void csv_file::append(std::string& str, siterator beg, siterator end)
 {
@@ -84,6 +76,16 @@ void csv_file::index()
 	else std::cout<<"KO"<<std::endl;
 }
 
+
+void csv_file::cell_iter(int i, int j, siterator& begin, siterator&  end) {
+	if (j > cols) { j = cols; }
+	if (i > rows) { i = rows; }
+	int k = cols * (i - 1) + (j - 1);
+	//std::cout<<k<<std::endl;
+	begin = indices[k];
+	end = indices[k + 1];
+
+}
 
 csv_file::csv_file(std::string input)
 	{
@@ -167,7 +169,7 @@ void csv_file::transponse()
 		//	std::cout<<cell(j,i)<<" ";
 			//file_temp.append(cell(j,i));
 			cell_iter(i, j, begin, end);
-			append(file_temp, begin end);
+			append(file_temp, begin,end);
 			file_temp.append(";");
 		}
 	file_temp.append("\n");
@@ -296,7 +298,7 @@ void csv_file::delete_cr(int dcolumns, int drows)
 		for (j = 0; j < y.size(); ++j)
 		{
 			//	std::cout<<cell(j,i)<<" ";
-			append(file_temp,)
+			//append(file_temp,)
 			file_temp.append(cell(x[i], y[j]));
 			file_temp.append(";");
 		}
