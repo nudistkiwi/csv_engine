@@ -78,18 +78,11 @@ csv_file::csv_file(char *filename)
 
 	}
 
-std::string csv_file::cell(int i,int j)
+std::string&  csv_file::cell(int i,int j)
 	{
 	//	try {
- 		if(j>cols){j=cols;}
- 		if(i>rows){i=rows;}
- 		int k=cols*(i-1)+(j-1);
-		//std::cout<<k<<std::endl;
- 		siterator start=indices[k];
- 		++start;
- 		siterator end=indices[k+1];
- 		std::string A(start,end);
- 		return(A);
+ 		
+ 		return(&FILE[i][j]);
 	//	 throw 99;
 	//	  }
 	//	catch(int x) {  return "some error";}  
@@ -323,5 +316,28 @@ void csv_file::loop(std::vector<std::pair<int, int  >> LIST)
 	index();
 
 
+
+}
+
+void csv_file::write_file(char* filename)
+{
+	int i, j;
+	//file_temp.reserve(file.size());
+	std::ofstream stream(filename);
+
+	
+
+	for (i = 0; i < rows; i++)
+	{
+		for (j = 0; j < cols; j++)
+		{
+			
+			stream << FILE[i][j];
+			stream << ";";
+		}
+		stream << "\n";
+	}
+
+	stream.close();
 
 }
