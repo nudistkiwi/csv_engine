@@ -31,12 +31,14 @@ void delete_cr(std::vector<int>& dcolumns,std::vector<int>& drows);
 void delete_cr(int, int drows);
 void check();
 bool status();
+void search_primary_column();
 //bool operator==(const csv_file & rhs);
 private:
 std::string file;
 std::string file_temp;
 std::vector<siterator> indices;
 bool  primary_key_unique;
+int primary_column;
 int rows,cols;	
 bool file_is_OK;
 int size;

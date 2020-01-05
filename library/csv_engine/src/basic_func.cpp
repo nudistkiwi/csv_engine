@@ -53,12 +53,12 @@ void csv_file::index()
 	for(iter=file.begin();iter!=file.end(); ++iter)
 	{	
 	//if('\n'!=*iter && ';'!=*iter){std::cout<<*iter;}
-	if(';'==*iter){indices.push_back(iter-1);++i;//std::cout<<std::endl;
+	if(';'==*iter){indices.push_back(iter);++i;//std::cout<<std::endl;
 	}
 	if('\n'==*iter)
 		{
 	++rows;
-	indices.push_back(iter+1);
+	indices.push_back(iter);
 	if(cols!=i && cols<0){cols=i;}
 	if(cols!=i && cols>0)
 			{
@@ -366,6 +366,11 @@ if (primary_key_unique && file_is_OK) return true;
 else return false;
 }
 
+void search_primary_column()
+{
+std::set<std::string> set;
+
+}
 
 
 
