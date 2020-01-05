@@ -17,6 +17,7 @@ csv_file(std::string input);
 void write(char* filename);
 void append(std::string& str, siterator beg, siterator end);
 void cell_iter(int i, int j, siterator& begin, siterator& end);
+void append(std::string& str, int, int);
 std::string cell(int i,int j);
 //void read(char *filename);
 void show_header();
@@ -24,6 +25,7 @@ int Nrows();
 int Ncols();
 bool OK();
 void transponse();
+void transponse0() 
 void print();
 void delete_cr(std::vector<int>& dcolumns,std::vector<int>& drows);
 void delete_cr(int, int drows);

@@ -23,6 +23,20 @@ void csv_file::append(std::string& str, siterator beg, siterator end)
 
 }
 
+void csv_file::append(std::string& str, int i, int j)
+{	siterator beg;
+	siterator end;
+	cell_iter(i,j,beg,end);
+	while (beg != end) 
+	{
+		str.append(1,*(++beg));
+		
+
+	}
+
+}
+
+
 void csv_file::index()
 {	std::cout<<"Indexing File...";
 	int k;
@@ -152,8 +166,34 @@ void csv_file::transponse()
 		{
 		//	std::cout<<cell(j,i)<<" ";
 			//file_temp.append(cell(j,i));
-			cell(i, j, begin, end);
+			cell_iter(i, j, begin, end);
 			append(file_temp, begin end);
+			file_temp.append(";");
+		}
+	file_temp.append("\n");
+	}
+file=file_temp;
+file_temp.clear();
+index();
+
+//cols=j;
+//cols=rows;
+//rows=j;
+
+}
+
+void csv_file::transponse0() 
+{
+	siterator begin;
+	siterator end;
+	file_temp.reserve(file.size());
+	int i,j;	
+	for(i=1;i<=cols;++i)
+	{
+		for(j=1;j<=rows;++j)
+		{
+		//	std::cout<<cell(j,i)<<" ";
+			file_temp.append(cell(j,i));
 			file_temp.append(";");
 		}
 	file_temp.append("\n");
@@ -256,6 +296,7 @@ void csv_file::delete_cr(int dcolumns, int drows)
 		for (j = 0; j < y.size(); ++j)
 		{
 			//	std::cout<<cell(j,i)<<" ";
+			append(file_temp,)
 			file_temp.append(cell(x[i], y[j]));
 			file_temp.append(";");
 		}
@@ -325,6 +366,10 @@ if (primary_key_unique && file_is_OK) return true;
 else return false;
 }
 
+
+
+
+/*
 void csv_file::loop(std::vector<std::pair<int, int  >> LIST)
 {
 
@@ -348,3 +393,4 @@ void csv_file::loop(std::vector<std::pair<int, int  >> LIST)
 
 }
 
+*/
