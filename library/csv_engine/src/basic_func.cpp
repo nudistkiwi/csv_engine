@@ -33,18 +33,18 @@ void csv_file::index()
 	siterator iter;
 	indices.clear();
 	iter=file.begin();
-	--iter;
+	//--iter;
 	indices.push_back(iter);
 	
 	for(iter=file.begin();iter!=file.end(); ++iter)
 	{	
 	//if('\n'!=*iter && ';'!=*iter){std::cout<<*iter;}
-	if(';'==*iter){indices.push_back(iter);++i;//std::cout<<std::endl;
+	if(';'==*iter){indices.push_back(iter-1);++i;//std::cout<<std::endl;
 	}
 	if('\n'==*iter)
 		{
 	++rows;
-	indices.push_back(iter);
+	indices.push_back(iter+1);
 	if(cols!=i && cols<0){cols=i;}
 	if(cols!=i && cols>0)
 			{
@@ -107,9 +107,8 @@ std::string  csv_file::cell(int i,int j)
 	int k = cols * (i - 1) + (j - 1);
 	//std::cout<<k<<std::endl;
 	siterator start = indices[k];
-	++start;
 	siterator end = indices[k + 1];
-	std::string A(start, end);
+	std::string A(start, end+1);
 	return(A);
 
 	}
