@@ -1,6 +1,21 @@
 //#include <csv_engine.h>
 #include <csv_engine.h>
 
+
+
+
+void csv_file::append(std::string& str, siterator beg, siterator end)
+{
+	
+	while (beg != end) 
+	{
+		str.append(1,*(++beg));
+		
+
+	}
+
+}
+
 void csv_file::index()
 {	std::cout<<"Indexing File...";
 	int k;
@@ -319,25 +334,3 @@ void csv_file::loop(std::vector<std::pair<int, int  >> LIST)
 
 }
 
-void csv_file::write_file(char* filename)
-{
-	int i, j;
-	//file_temp.reserve(file.size());
-	std::ofstream stream(filename);
-
-	
-
-	for (i = 0; i < rows; i++)
-	{
-		for (j = 0; j < cols; j++)
-		{
-			
-			stream << FILE[i][j];
-			stream << ";";
-		}
-		stream << "\n";
-	}
-
-	stream.close();
-
-}
