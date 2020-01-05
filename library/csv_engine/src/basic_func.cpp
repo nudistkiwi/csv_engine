@@ -1,8 +1,15 @@
 //#include <csv_engine.h>
 #include <csv_engine.h>
 
+void cell_iter(int i, int j, siterator& begin, siterator& end) {
+	if (j > cols) { j = cols; }
+	if (i > rows) { i = rows; }
+	int k = cols * (i - 1) + (j - 1);
+	//std::cout<<k<<std::endl;
+	begin = indices[k];
+	end = indices[k + 1];
 
-
+	}
 
 void csv_file::append(std::string& str, siterator beg, siterator end)
 {
@@ -93,14 +100,18 @@ csv_file::csv_file(char *filename)
 
 	}
 
-std::string&  csv_file::cell(int i,int j)
+std::string  csv_file::cell(int i,int j)
 	{
-	//	try {
- 		
- 		return(&FILE[i][j]);
-	//	 throw 99;
-	//	  }
-	//	catch(int x) {  return "some error";}  
+	if (j > cols) { j = cols; }
+	if (i > rows) { i = rows; }
+	int k = cols * (i - 1) + (j - 1);
+	//std::cout<<k<<std::endl;
+	siterator start = indices[k];
+	++start;
+	siterator end = indices[k + 1];
+	std::string A(start, end);
+	return(A);
+
 	}
 
 void csv_file::show_header()
@@ -132,6 +143,8 @@ bool csv_file::OK()
 
 void csv_file::transponse() 
 {
+	siterator begin;
+	siterator end;
 	file_temp.reserve(file.size());
 	int i,j;	
 	for(i=1;i<=cols;++i)
@@ -139,7 +152,9 @@ void csv_file::transponse()
 		for(j=1;j<=rows;++j)
 		{
 		//	std::cout<<cell(j,i)<<" ";
-			file_temp.append(cell(j,i));
+			//file_temp.append(cell(j,i));
+			cell(i, j, begin, end);
+			append(file_temp, begin end);
 			file_temp.append(";");
 		}
 	file_temp.append("\n");
