@@ -8,9 +8,12 @@
 void csv_file::append(std::string& str, int i, int j)
 {	siterator beg;
 	siterator end;
+	
 	int k;
 	cell_iter(i,j,beg,end);
 	str.append(beg, end);
+	std::string ds(beg,end);
+	std::cout<<ds<<std::endl;
 	/*while (++beg != end)
 	{
 		std::cout << *beg;
