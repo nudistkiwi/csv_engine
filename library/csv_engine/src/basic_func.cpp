@@ -20,9 +20,22 @@ void csv_file::append(std::string& str, int i, int j)
 	*/
 }
 
+void csv_file::cell_iter(int i, int j, siterator& begin, siterator&  end) {
+	if (j > cols) { j = cols; }
+	if (i > rows) { i = rows; }
+	int k = cols * (i - 1) + (j - 1);
+	//std::cout<<k<<std::endl;
+	
+	begin = indices[k];
+	end = indices[k + 1];
+	if(i!=1 || j!=1){begin++;}
+
+	
+}
 
 void csv_file::index()
 {	std::cout<<"Indexing File...";
+	std::vector<siterator> deletion_targets;
 	int k;
 	int i=1;
 	cols=-1;
@@ -31,13 +44,18 @@ void csv_file::index()
 	siterator iter;
 	indices.clear();
 	iter=file.begin();
+	bool inside=false;
 	//--iter;
 	indices.push_back(iter);
-	
+//	if(inside){for(int r=0;r<deletion.size();r++){if(deletion[r]==*iter){deletion_targets.push_back(iter);}}}
 	for(iter=file.begin();iter!=file.end(); ++iter)
 	{	
 	//if('\n'!=*iter && ';'!=*iter){std::cout<<*iter;}
 	if(';'==*iter){indices.push_back(iter);++i;//std::cout<<std::endl;
+	
+//	if('"'==*(iter+1)){indices.back()++;inside=true;}
+//  if('"'==*(iter-1) && inside){indices.back()--;inside=false;}
+	
 	}
 	if('\n'==*iter)
 		{
@@ -72,15 +90,7 @@ void csv_file::index()
 }
 
 
-void csv_file::cell_iter(int i, int j, siterator& begin, siterator&  end) {
-	if (j > cols) { j = cols; }
-	if (i > rows) { i = rows; }
-	int k = cols * (i - 1) + (j - 1);
-	//std::cout<<k<<std::endl;
-	begin = indices[k];
-	end = indices[k + 1];
 
-}
 
 csv_file::csv_file(std::string input)
 	{

@@ -36,6 +36,7 @@ private:
 std::string file;
 std::string file_temp;
 std::vector<siterator> indices;
+std::vector<char> deletion;
 bool  primary_key_unique;
 int primary_column;
 int rows,cols;	
