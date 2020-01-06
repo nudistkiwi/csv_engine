@@ -6,22 +6,23 @@ int k;
 
 //string all=ingest_xlsx(fi);
 
-char file[]="ab.csv";
+char file[]="tc1.csv";
 csv_file test(file);
 std::cout<<"cols  "<<test.Ncols()<<std::endl;
 std::cout<<"rows  "<<test.Nrows()<<std::endl;
 //test.transponse0();
-
+//test.print();
 test.transponse();
-test.print();
-//test.write("test.csv");
+//test.print();
+std::cin >> i;
+test.write("test.csv");
 //test.check();
 //test.status();
 std::vector<int> as{2};
 std::vector<int> bs{2};
 //test.print();
 //test.delete_cr(as,bs);
-std::cin >> i;
+
 test.print();
 
 test.check();
