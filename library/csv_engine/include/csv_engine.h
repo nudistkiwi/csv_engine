@@ -15,7 +15,6 @@ void index();
 csv_file(char *filename);
 csv_file(std::string input);
 void write(char* filename);
-void append(std::string& str, siterator beg, siterator end);
 void cell_iter(int i, int j, siterator& begin, siterator& end);
 void append(std::string& str, int, int);
 std::string cell(int i,int j);

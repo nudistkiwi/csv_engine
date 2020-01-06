@@ -3,29 +3,21 @@
 
 
 
-void csv_file::append(std::string& str, siterator beg, siterator end)
-{
-	
-	while (beg != end) 
-	{
-		str.append(1,*(++beg));
-		
 
-	}
-
-}
 
 void csv_file::append(std::string& str, int i, int j)
 {	siterator beg;
 	siterator end;
+	int k;
 	cell_iter(i,j,beg,end);
-	while (beg != end) 
+	str.append(beg, end);
+	/*while (++beg != end)
 	{
-		str.append(1,*(++beg));
+		std::cout << *beg;
 		
-
 	}
-
+	std::cout << std::endl;
+	*/
 }
 
 
@@ -70,7 +62,10 @@ void csv_file::index()
 	//std::cout<<cols<<std::endl;
 		}
 	}
-	--rows;
+	iter = file.end()-4;
+	indices.push_back(iter);
+	//--rows;
+	//for (i = 0; i < indices.size(); i++) { std::cout << indices[i] - file.begin() << std::endl; }
 //	std::cout<<indices.size()<<std::endl;
 	if(file_is_OK) std::cout<<"OK"<<std::endl;
 	else std::cout<<"KO"<<std::endl;
@@ -165,25 +160,28 @@ bool csv_file::OK()
 
 void csv_file::transponse() 
 {
+	int k;
 	siterator begin;
 	siterator end;
 	file_temp.reserve(file.size());
 	int i,j;	
-	for(i=1;i<=cols;++i)
+	for(j=1;j<=cols;++j)
 	{
-		for(j=1;j<=rows;++j)
+		for(i=1;i<=rows;++i)
 		{
 		//	std::cout<<cell(j,i)<<" ";
 			//file_temp.append(cell(j,i));
-			cell_iter(i, j, begin, end);
-			append(file_temp, begin,end);
+			//cell_iter(i, j, begin, end);
+			append(file_temp, i,j);
+			//std::cin >> k;
 			file_temp.append(";");
 		}
 	file_temp.append("\n");
 	}
 file=file_temp;
 file_temp.clear();
-index();
+std::cout << file;
+//index();
 
 //cols=j;
 //cols=rows;
@@ -203,13 +201,14 @@ void csv_file::transponse0()
 		{
 		//	std::cout<<cell(j,i)<<" ";
 			file_temp.append(cell(j,i));
+			std::cout << cell(j, i)<<std::endl;
 			file_temp.append(";");
 		}
 	file_temp.append("\n");
 	}
 file=file_temp;
 file_temp.clear();
-index();
+//index();
 
 //cols=j;
 //cols=rows;
@@ -323,15 +322,15 @@ void csv_file::check()
 size=sizeof(char)*file.size();
 int i=1;
 int k;
-int duplicates;
+int duplicates=0;
 primary_key_unique=true; 
 std::vector<std::string> primary;
 for(int i=2;i<=rows;++i){
-primary.push_back(cell(1,i));
+primary.push_back(cell(i,1));
 }
 std::sort(primary.begin(),primary.end());
 
-for(int i=2;i<rows;++i) {
+for(int i=0;i<primary.size()-1;++i) {
 if(primary[i]==primary[i+1]){primary_key_unique=false; ++duplicates;}
 			}
 siterator iter;
