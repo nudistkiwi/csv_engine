@@ -39,6 +39,7 @@ void csv_file::cell_iter(int i, int j, siterator& begin, siterator&  end) {
 void csv_file::index()
 {	std::cout<<"Indexing File...";
 	std::vector<siterator> deletion_targets;
+	siterator last_valid_line;	
 	int k;
 	int i=1;
 	cols=-1;
@@ -63,6 +64,7 @@ void csv_file::index()
 	if('\n'==*iter)
 		{
 	++rows;
+
 	indices.push_back(iter);
 	if(cols!=i && cols<0){cols=i;}
 	if(cols!=i && cols>0)
@@ -78,14 +80,21 @@ void csv_file::index()
 				} */
 			file_is_OK=false;cols=i;
 			}
+	if(i==cols){last_valid_line=iter;}
 	i=1;
 	//std::cout<<std::endl;
 	//std::cout<<cols<<std::endl;
 		}
 	}
-	iter = file.end();
-	indices.push_back(iter);
-	//--rows;
+	for(iter=indices[indices.size()-2];iter!=file.end();iter++)
+	{
+	std::cout<<*iter;	
+	
+	}
+	std::cin>>i;
+//	iter = file.end();
+//	indices.push_back(iter);
+	--rows;
 	//for (i = 0; i < indices.size(); i++) { std::cout << indices[i] - file.begin() << std::endl; }
 //	std::cout<<indices.size()<<std::endl;
 	if(file_is_OK) std::cout<<"OK"<<std::endl;
@@ -172,52 +181,38 @@ bool csv_file::OK()
 	else return(false);
 	}
 
-void csv_file::transponse() 
+void csv_file::transponse0() 
 {
 	int k;
 	siterator begin;
 	siterator end;
 	file_temp.clear();
 	file_temp.reserve(file.size());
+	//std::cout<<file_temp.capacity()<<std::endl;
+	//std::cout<<file_temp.max_size()<<std::endl;
 	int i,j;	
-	for(j=1;j<=cols;j++)
+for(j=1;j<=cols;j++)
 	{
 		for(i=1;i<rows;i++)
 		{
 		//	std::cout<<cell(j,i)<<" ";
 			//file_temp.append(cell(j,i));
-			//cell_iter(i, j, begin, end);
+		//	cell_iter(i, j, begin, end);
 			append(file_temp,i,j);
 			//std::cin >> k;
 			file_temp.append(";");
 			
 		}
-		append(file_temp, rows, j);
-		std::cout << file_temp.size();
+//		std::cout << file_temp.size();
 		
-		try { std::cout << file_temp; }
-		catch (const std::overflow_error& e) {
-			// this executes if f() throws std::overflow_error (same type rule)
-			std::cout << 1;
-		}
-		catch (const std::runtime_error& e) {
-			// this executes if f() throws std::underflow_error (base class rule)
-			std::cout << 2;
-		}
-		catch (const std::exception& e) {
-			// this executes if f() throws std::logic_error (base class rule)
-		}
-		catch (...) {
-			// this executes if f() throws std::string or int or any other unrelated type
-			std::cout << 3;
-		}
-		std::cin >> k;
+	
+//		std::cin >> k;
 	file_temp.append("\n");
 	}
 file=file_temp;
 file_temp.clear();
-std::cout << file;
-//index();
+//std::cout << file;
+index();
 
 //cols=j;
 //cols=rows;
@@ -225,26 +220,26 @@ std::cout << file;
 
 }
 
-void csv_file::transponse0() 
-{
-	siterator begin;
-	siterator end;
+void csv_file::transponse() 
+{	file_temp.clear();
 	file_temp.reserve(file.size());
 	int i,j;	
 	for(i=1;i<=cols;++i)
 	{
-		for(j=1;j<=rows;++j)
+		for(j=1;j<rows;++j)
 		{
 		//	std::cout<<cell(j,i)<<" ";
 			file_temp.append(cell(j,i));
-			std::cout << cell(j, i)<<std::endl;
+		//	std::cout << cell(j, i)<<std::endl;
 			file_temp.append(";");
 		}
-	file_temp.append("\n");
+		
+		file_temp.append(cell(rows,i));
+		file_temp.append("\n");
 	}
 file=file_temp;
 file_temp.clear();
-//index();
+index();
 
 //cols=j;
 //cols=rows;
@@ -391,7 +386,7 @@ Byte.push_back("Bytes");
 Byte.push_back("KiloBytes");
 Byte.push_back("MegaBytes");
 Byte.push_back("GigaBytes");
-
+std::cout<<"number of characters.."<<file.size()<<std::endl;
 std::cout<<"primary key is unique...."<<primary_key_unique<<std::endl;
 std::cout<<"file is healthy...."<<file_is_OK<<std::endl;
 std::cout<<"file has size...";
