@@ -4,7 +4,7 @@
 
 
 
-
+/*
 void csv_file::append(std::string& str, int i, int j)
 {	siterator beg;
 	siterator end;
@@ -14,15 +14,15 @@ void csv_file::append(std::string& str, int i, int j)
 	str.append(beg, end);
 	std::string ds(beg,end);
 	//std::cout<<ds<<std::endl;
-	/*while (++beg != end)
+	*while (++beg != end)
 	{
 		std::cout << *beg;
 		
 	}
 	std::cout << std::endl;
-	*/
-}
-
+	
+}*/
+/*
 void csv_file::cell_iter(int i, int j, siterator& begin, siterator&  end) {
 	if (j > cols) { j = cols; }
 	if (i > rows) { i = rows; }
@@ -35,11 +35,13 @@ void csv_file::cell_iter(int i, int j, siterator& begin, siterator&  end) {
 
 	
 }
-
+*/
 void csv_file::index()
 {	std::cout<<"Indexing File...";
 	std::vector<siterator> deletion_targets;
 	siterator last_valid_line;	
+	char delimiter=',';
+	char newline='\n';
 	int k;
 	int i=1;
 	cols=-1;
@@ -53,18 +55,26 @@ void csv_file::index()
 	indices.push_back(iter);
 //	if(inside){for(int r=0;r<deletion.size();r++){if(deletion[r]==*iter){deletion_targets.push_back(iter);}}}
 	for(iter=file.begin();iter!=file.end(); ++iter)
-	{	
+	{
+		
+//	std::cout<<*iter;	
 	//if('\n'!=*iter && ';'!=*iter){std::cout<<*iter;}
-	if(';'==*iter){indices.push_back(iter);++i;//std::cout<<std::endl;
 	
-//	if('"'==*(iter+1)){indices.back()++;inside=true;}
-//  if('"'==*(iter-1) && inside){indices.back()--;inside=false;}
+	if(delimiter==*iter && inside==true){
+	if('"'==*(iter-1) && inside){inside=false;}
+	indices.push_back(iter);++i;//std::cout<<std::endl;
+ 	}	
+	if(delimiter==*iter && inside==false){
+	indices.push_back(iter);++i;//std::cout<<std::endl;
+//	std::string vf(indices[indices.size()-2],iter);
+//	std::cout<<vf<<std::endl;	
+	if('"'==*(iter+1)){indices.back()++;inside=true;}
 	
 	}
-	if('\n'==*iter)
+	if(newline==*iter || int(*iter)==10)
 		{
 	++rows;
-
+	//std::cout<<rows<<"  "<<i<<" "<<cols<<std::endl;
 	indices.push_back(iter);
 	if(cols!=i && cols<0){cols=i;}
 	if(cols!=i && cols>0)
@@ -78,7 +88,9 @@ void csv_file::index()
 				case("s"){for(int p=0;p<cols;p++){indices.pop_back();} iter = indices.back(); break;}
 				case("c"){for(int p=0;p<cols;p++){indices.pop_back();} iter = indices.back(); break;}
 				} */
-			file_is_OK=false;cols=i;
+			file_is_OK=false;
+	//		std::cout<<"error"<<std::endl;	
+	//		std::cin>>k;
 			}
 	if(i==cols){last_valid_line=iter;}
 	i=1;
@@ -86,12 +98,13 @@ void csv_file::index()
 	//std::cout<<cols<<std::endl;
 		}
 	}
-	for(iter=indices[indices.size()-2];iter!=file.end();iter++)
-	{
-	std::cout<<*iter;	
-	
-	}
-	std::cin>>i;
+	//for(iter=file.begin();iter!=file.end();iter++)
+//	for(iter=indices[indices];iter!=file.end();iter++)
+//	{
+//	std::cout<<*iter;	
+//	if(int(*iter)<32){std::cout<<int(*iter)<<" "<<cols<<std::endl;std::cin>>i;}
+//	}
+//	std::cin>>i;
 //	iter = file.end();
 //	indices.push_back(iter);
 	--rows;
@@ -99,6 +112,7 @@ void csv_file::index()
 //	std::cout<<indices.size()<<std::endl;
 	if(file_is_OK) std::cout<<"OK"<<std::endl;
 	else std::cout<<"KO"<<std::endl;
+	std::cout<<indices.size()<<std::endl;
 }
 
 
@@ -180,7 +194,7 @@ bool csv_file::OK()
 	if(file_is_OK) return(true);
 	else return(false);
 	}
-
+/*
 void csv_file::transponse0() 
 {
 	int k;
@@ -219,7 +233,7 @@ index();
 //rows=j;
 
 }
-
+*/
 void csv_file::transponse() 
 {	file_temp.clear();
 	file_temp.reserve(file.size());

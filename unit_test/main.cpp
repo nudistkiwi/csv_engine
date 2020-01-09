@@ -3,23 +3,28 @@
 int main(){
 int i,j;
 int k;
-std::string maxi;
-std::cout<<maxi.max_size()<<std::endl;
 //string all=ingest_xlsx(fi);
-char file[]="tc1.csv";
+char file[]="Crimes.csv";
+
+auto start_t=std::chrono::system_clock::now();
 csv_file test(file);
-std::cout<<"cols  "<<test.Ncols()<<std::endl;
-std::cout<<"rows  "<<test.Nrows()<<std::endl;
+auto end_t=std::chrono::system_clock::now();
+std::chrono::duration<double> delta=end_t-start_t;
+std::cout<<delta.count()<<std::endl;
+
+std::cin>>i;
+//std::cout<<"cols  "<<test.Ncols()<<std::endl;
+//std::cout<<"rows  "<<test.Nrows()<<std::endl;
 //test.transponse0();
 //test.print();
 test.check();
 test.status();
-test.print();
+//test.print();
 std::cin>>i;
-auto start_t=std::chrono::system_clock::now();
+start_t=std::chrono::system_clock::now();
 test.transponse();
-auto end_t=std::chrono::system_clock::now();
-std::chrono::duration<double> delta=end_t-start_t;
+end_t=std::chrono::system_clock::now();
+delta=end_t-start_t;
 std::cout<<delta.count()<<std::endl;
 //test.print();
 test.print();
