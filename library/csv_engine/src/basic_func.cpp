@@ -57,46 +57,66 @@ void csv_file::index()
 	for(iter=file.begin();iter!=file.end(); ++iter)
 	{
 		
-//	std::cout<<*iter;	
-	//if('\n'!=*iter && ';'!=*iter){std::cout<<*iter;}
-	
-	if(delimiter==*iter && inside==true){
-	if('"'==*(iter-1) && inside){inside=false;}
-	indices.push_back(iter);++i;//std::cout<<std::endl;
- 	}	
-	if(delimiter==*iter && inside==false){
-	indices.push_back(iter);++i;//std::cout<<std::endl;
-//	std::string vf(indices[indices.size()-2],iter);
-//	std::cout<<vf<<std::endl;	
-	if('"'==*(iter+1)){indices.back()++;inside=true;}
-	
-	}
-	if(newline==*iter || int(*iter)==10)
-		{
-	++rows;
-	//std::cout<<rows<<"  "<<i<<" "<<cols<<std::endl;
-	indices.push_back(iter);
-	if(cols!=i && cols<0){cols=i;}
-	if(cols!=i && cols>0)
-			{
-		/*	std::cout<<"Error in row "<<row-1<<std::endl;
-			std::cout<<"x..stop,c..cancel,s..skip"<<std::endl;
-			string message;
-			switch(message)
-				{
-				case("x") { for (int p = 0; p < cols; p++) { indices.pop_back(); } iter = indices.back(); break; }
-				case("s"){for(int p=0;p<cols;p++){indices.pop_back();} iter = indices.back(); break;}
-				case("c"){for(int p=0;p<cols;p++){indices.pop_back();} iter = indices.back(); break;}
-				} */
-			file_is_OK=false;
-	//		std::cout<<"error"<<std::endl;	
-	//		std::cin>>k;
+
+	if ('"' == *iter) {
+		iter++;
+			//std::cout << "inside  " << i << "   " << rows << std::endl;
+			
+			while ('"' != *iter) {// std::cout << *iter; 
+			iter++; 
 			}
-	if(i==cols){last_valid_line=iter;}
-	i=1;
-	//std::cout<<std::endl;
-	//std::cout<<cols<<std::endl;
+			//std::cin >> k;
+	}
+//	if ('"' == *(iter) && inside == true && *(iter + 1) == delimiter ) { inside == false;
+//	std::cout << "outside  " << i << "   " << rows << std::endl;
+//	std::cin >> k;
+//	}
+	
+	//if(inside ==false && '"' != *(iter)) {
+		//	std::cout<<*iter;	
+			//if('\n'!=*iter && ';'!=*iter){std::cout<<*iter;}
+
+			//if(delimiter==*iter && inside==true){
+			//if('"'==*(iter-1) && inside){inside=false;}
+			//indices.push_back(iter);++i;//std::cout<<std::endl;
+			//}	
+
+		if (delimiter == *iter ) {
+			indices.push_back(iter); ++i;//std::cout<<std::endl;
+		//	std::string vf(indices[indices.size()-2],iter);
+		//	std::cout<<vf<<std::endl;	
+		//	if('"'==*(iter+1)){indices.back()++;inside=true;
+		//	}
+
 		}
+
+		if (newline == *iter || int(*iter) == 10)
+		{
+			++rows;
+			//std::cout<<rows<<"  "<<i<<" "<<cols<<std::endl;
+			indices.push_back(iter);
+			if (cols != i && cols < 0) { cols = i; }
+			if (cols != i && cols > 0)
+			{
+				/*	std::cout<<"Error in row "<<row-1<<std::endl;
+					std::cout<<"x..stop,c..cancel,s..skip"<<std::endl;
+					string message;
+					switch(message)
+						{
+						case("x") { for (int p = 0; p < cols; p++) { indices.pop_back(); } iter = indices.back(); break; }
+						case("s"){for(int p=0;p<cols;p++){indices.pop_back();} iter = indices.back(); break;}
+						case("c"){for(int p=0;p<cols;p++){indices.pop_back();} iter = indices.back(); break;}
+						} */
+				file_is_OK = false;
+						std::cout<<"error  "<<i<<"   "<<rows<<std::endl;	
+						std::cin>>k;
+			}
+			if (i == cols) { last_valid_line = iter; }
+			i = 1;
+			//std::cout<<std::endl;
+			//std::cout<<cols<<std::endl;
+		}
+	
 	}
 	//for(iter=file.begin();iter!=file.end();iter++)
 //	for(iter=indices[indices];iter!=file.end();iter++)
