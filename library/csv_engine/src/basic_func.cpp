@@ -50,92 +50,62 @@ void csv_file::index()
 	siterator iter;
 	indices.clear();
 	iter=file.begin();
-	bool inside=false;
-	//--iter;
+	bool line_empty=false;
 	indices.push_back(iter);
-//	if(inside){for(int r=0;r<deletion.size();r++){if(deletion[r]==*iter){deletion_targets.push_back(iter);}}}
 	for(iter=file.begin();iter!=file.end(); ++iter)
 	{
 		
 
 	if ('"' == *iter) {
 		iter++;
-			//std::cout << "inside  " << i << "   " << rows << std::endl;
 			
 			while ('"' != *iter) {// std::cout << *iter; 
 			iter++; 
 			}
-			//std::cin >> k;
 	}
-//	if ('"' == *(iter) && inside == true && *(iter + 1) == delimiter ) { inside == false;
-//	std::cout << "outside  " << i << "   " << rows << std::endl;
-//	std::cin >> k;
-//	}
-	
-	//if(inside ==false && '"' != *(iter)) {
-		//	std::cout<<*iter;	
-			//if('\n'!=*iter && ';'!=*iter){std::cout<<*iter;}
-
-			//if(delimiter==*iter && inside==true){
-			//if('"'==*(iter-1) && inside){inside=false;}
-			//indices.push_back(iter);++i;//std::cout<<std::endl;
-			//}	
-
 		if (delimiter == *iter ) {
+			line_empty=false;
 			indices.push_back(iter); ++i;//std::cout<<std::endl;
-		//	std::string vf(indices[indices.size()-2],iter);
-		//	std::cout<<vf<<std::endl;	
-		//	if('"'==*(iter+1)){indices.back()++;inside=true;
-		//	}
 
 		}
 
-		if (newline == *iter || int(*iter) == 10)
+		if ((newline == *iter || int(*iter) == 10) && line_empty==false)
 		{
 			++rows;
-			//std::cout<<rows<<"  "<<i<<" "<<cols<<std::endl;
+			line_empty=true;
 			indices.push_back(iter);
 			if (cols != i && cols < 0) { cols = i; }
 			if (cols != i && cols > 0)
 			{
-				/*	std::cout<<"Error in row "<<row-1<<std::endl;
-					std::cout<<"x..stop,c..cancel,s..skip"<<std::endl;
-					string message;
-					switch(message)
-						{
-						case("x") { for (int p = 0; p < cols; p++) { indices.pop_back(); } iter = indices.back(); break; }
-						case("s"){for(int p=0;p<cols;p++){indices.pop_back();} iter = indices.back(); break;}
-						case("c"){for(int p=0;p<cols;p++){indices.pop_back();} iter = indices.back(); break;}
-						} */
 				file_is_OK = false;
 						std::cout<<"error  "<<i<<"   "<<rows<<std::endl;	
 						std::cin>>k;
 			}
 			if (i == cols) { last_valid_line = iter; }
 			i = 1;
-			//std::cout<<std::endl;
-			//std::cout<<cols<<std::endl;
 		}
 	
 	}
-	//for(iter=file.begin();iter!=file.end();iter++)
-//	for(iter=indices[indices];iter!=file.end();iter++)
-//	{
-//	std::cout<<*iter;	
-//	if(int(*iter)<32){std::cout<<int(*iter)<<" "<<cols<<std::endl;std::cin>>i;}
-//	}
-//	std::cin>>i;
-//	iter = file.end();
-//	indices.push_back(iter);
+	indices.push_back(iter);
 	--rows;
-	//for (i = 0; i < indices.size(); i++) { std::cout << indices[i] - file.begin() << std::endl; }
-//	std::cout<<indices.size()<<std::endl;
 	if(file_is_OK) std::cout<<"OK"<<std::endl;
 	else std::cout<<"KO"<<std::endl;
 	std::cout<<indices.size()<<std::endl;
 }
 
-
+//std::string string_analyzer(const std::string &Text ){
+//Date, Location, City, Name , DB Name , Application Name, Description, 
+//Application Code, Legal Entity
+//yyyy/mm/dd
+//dd/mm/yyyy
+//dd.mm.yyyy
+//dd-mm-yyyy
+//Handynr
+//Tel nr
+//
+//}
+//
+//
 
 
 csv_file::csv_file(std::string input)
