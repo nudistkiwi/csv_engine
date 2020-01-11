@@ -10,7 +10,8 @@ class csv_file
 {
 public:
 typedef std::string::iterator siterator;
-void index();
+bool index();
+bool index(char delimiter);
 //void clean();
 csv_file(char *filename);
 csv_file(std::string input);

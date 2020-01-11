@@ -36,11 +36,21 @@ void csv_file::cell_iter(int i, int j, siterator& begin, siterator&  end) {
 	
 }
 */
-void csv_file::index()
-{	std::cout<<"Indexing File...";
+
+bool csv_file::index() {
+	if (index(';')) return true;
+	if (index(',')) return true;
+	if (index('\t')) return true;
+	if (index('::')) return true;
+	return false;
+}
+
+bool csv_file::index(char delimiter)
+{	
+	//std::cout<<"Indexing File...";
 	std::vector<siterator> deletion_targets;
 	siterator last_valid_line;	
-	char delimiter=',';
+	//char delimiter=',';
 	char newline='\n';
 	int k;
 	int i=1;
@@ -51,6 +61,7 @@ void csv_file::index()
 	indices.clear();
 	iter=file.begin();
 	bool line_empty=false;
+	bool delimiter_found;
 	indices.push_back(iter);
 	for(iter=file.begin();iter!=file.end(); ++iter)
 	{
@@ -59,7 +70,7 @@ void csv_file::index()
 	if ('"' == *iter) {
 		iter++;
 			
-			while ('"' != *iter) {// std::cout << *iter; 
+			while ('"' != *iter) {// std::cout << *iter; ttttttttttttttt
 			iter++; 
 			}
 	}
@@ -88,9 +99,13 @@ void csv_file::index()
 	}
 	indices.push_back(iter);
 	--rows;
-	if(file_is_OK) std::cout<<"OK"<<std::endl;
-	else std::cout<<"KO"<<std::endl;
-	std::cout<<indices.size()<<std::endl;
+	//if(file_is_OK) std::cout<<"OK"<<std::endl;
+	//else std::cout<<"KO"<<std::endl;
+	//std::cout<<indices.size()<<std::endl;
+	if (cols == 1 && file_is_OK) file_is_OK = false;
+
+	if (file_is_OK) return true;
+	else return false;
 }
 
 //std::string string_analyzer(const std::string &Text ){
@@ -111,7 +126,8 @@ void csv_file::index()
 csv_file::csv_file(std::string input)
 	{
 		file=input;
-		csv_file::index();
+		if (csv_file::index()) { std::cout << "File Status OK" << std::endl; }
+		else std::cout << "File Status Not OK" << std::endl;
 	}
 
 csv_file::csv_file(char *filename)
@@ -127,7 +143,8 @@ csv_file::csv_file(char *filename)
 	std::string help(data,N);
 	file=help;
 
-	index();
+	if (csv_file::index()) { std::cout << "File Status OK" << std::endl; }
+	else std::cout << "File Status Not OK" << std::endl;
  }
 
  void csv_file::write(char* filename)
