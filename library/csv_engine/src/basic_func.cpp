@@ -38,8 +38,9 @@ void csv_file::cell_iter(int i, int j, siterator& begin, siterator&  end) {
 */
 
 bool csv_file::index() {
-	if (index(';')) return true;
+	
 	if (index(',')) return true;
+	if (index(';')) return true;
 	if (index('\t')) return true;
 	if (index('::')) return true;
 	return false;
@@ -50,6 +51,7 @@ bool csv_file::index(char delimiter)
 	//std::cout<<"Indexing File...";
 	std::vector<siterator> deletion_targets;
 	siterator last_valid_line;	
+	indices.reserve(1000000);
 	//char delimiter=',';
 	char newline='\n';
 	int k;
@@ -141,8 +143,9 @@ csv_file::csv_file(char *filename)
 	char* data= new char[N];
 	input.read(data,N);
 	std::string help(data,N);
+	delete[] data;
 	file=help;
-
+	
 	if (csv_file::index()) { std::cout << "File Status OK" << std::endl; }
 	else std::cout << "File Status Not OK" << std::endl;
  }
@@ -397,6 +400,8 @@ if(*iter=='\n'){colc=0;row_cols.push_back(colc);}
 std::sort(row_cols.begin(),row_cols.end());
 if(row_cols.front()==row_cols.back()){file_is_OK=true;}
 
+
+
 }
 
 bool csv_file::status(){
@@ -418,6 +423,8 @@ nice_size=nice_size/1000;
 ++i;
 }
 std::cout<<nice_size<<" "<<Byte[i]<<std::endl;
+std::cout << indices.size()*sizeof(siterator)/1000000  <<"MB"<< std::endl;
+
 std::cout<<"rows.."<<rows<<"  colums..."<<cols<<std::endl;
 /*cout<<"file has uncomitted changes";
 //cout<<"number of changes";
@@ -454,3 +461,46 @@ void csv_file::loop(std::vector<std::pair<int, int  >> LIST)
 }
 
 */
+
+
+//void csv_engine::search_primary_key() {
+
+
+
+
+
+//}
+
+void csv_file::swap(int m, int n) 
+{
+
+	file_temp.clear();
+	file_temp.reserve(file.size());
+	for (int i = 1; i <= rows; i++)
+	{
+		for (int j = 1; j <= cols; j++)
+		{
+			if (i == m && j == n) { file_temp.append(cell(j, i)); }
+			else { file_temp.append(cell(i, j)); }
+			//	std::cout << cell(j, i)<<std::endl;
+			file_temp.append(";");
+		}
+
+		file_temp.append(cell(rows, i));
+		file_temp.append("\n");
+	}
+	file = file_temp;
+	file_temp.clear();
+	index();
+
+
+}
+
+
+bool csv_file::operator== (const csv_file& lhs)
+{
+	if (file == lhs.file) return true;
+	else false;
+
+
+}

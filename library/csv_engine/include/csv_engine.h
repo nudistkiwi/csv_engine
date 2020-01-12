@@ -32,6 +32,9 @@ void delete_cr(int, int drows);
 void check();
 bool status();
 void search_primary_column();
+void search_primary_key();
+void swap(int, int);
+bool operator== ( const csv_file& lhs);
 //bool operator==(const csv_file & rhs);
 private:
 std::string file;
