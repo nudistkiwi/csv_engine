@@ -1,57 +1,23 @@
-//#include <csv_engine.h>
+
 #include <csv_engine.h>
 
 
 
 
-/*
-void csv_file::append(std::string& str, int i, int j)
-{	siterator beg;
-	siterator end;
-	
-	int k;
-	cell_iter(i,j,beg,end);
-	str.append(beg, end);
-	std::string ds(beg,end);
-	//std::cout<<ds<<std::endl;
-	*while (++beg != end)
-	{
-		std::cout << *beg;
-		
-	}
-	std::cout << std::endl;
-	
-}*/
-/*
-void csv_file::cell_iter(int i, int j, siterator& begin, siterator&  end) {
-	if (j > cols) { j = cols; }
-	if (i > rows) { i = rows; }
-	int k = cols * (i - 1) + (j - 1);
-	//std::cout<<k<<std::endl;
-	
-	begin = indices[k];
-	end = indices[k + 1];
-	if(i!=1 || j!=1){begin++;}
-
-	
-}
-*/
-
 bool csv_file::index() {
-
-	if (index('\t')) return true;
 	if (index(',')) return true;
 	if (index(';')) return true;
-	if (index('::')) return true;
+	if (index('\t')) return true;
+//	if (index('::')) return true;
 	return false;
 }
 
 bool csv_file::index(char delimiter)
-{	std::cout<<sizeof(siterator)<<" "<<sizeof(int)<<std::endl;
-	//std::cout<<"Indexing File...";
+{//	std::cout<<sizeof(siterator)<<" "<<sizeof(int)<<std::endl;
+	std::cout<<"Indexing File..."<<std::endl;
 	std::vector<siterator> deletion_targets;
 	siterator last_valid_line;	
-	indices.reserve(1000000);
+	
 	//char delimiter=',';
 	char newline='\n';
 	int k;
@@ -88,11 +54,12 @@ bool csv_file::index(char delimiter)
 			line_empty=true;
 			indices.push_back(iter);
 			if (cols != i && cols < 0) { cols = i; }
-			if (cols != i && cols > 0)
+			if ((cols != i && cols > 0) || i==1)
 			{
 				file_is_OK = false;
-						std::cout<<"error  "<<rows<<" "<<i<<"   "<<rows<<std::endl;	
-						std::cin>>k;
+						
+					//	std::cout<<"error  "<<rows<<" "<<i<<"   "<<rows<<std::endl;	
+						return false;	
 			}
 			if (i == cols) { last_valid_line = iter; }
 			i = 1;
@@ -204,72 +171,6 @@ bool csv_file::OK()
 	if(file_is_OK) return(true);
 	else return(false);
 	}
-/*
-void csv_file::transponse0() 
-{
-	int k;
-	siterator begin;
-	siterator end;
-	file_temp.clear();
-	file_temp.reserve(file.size());
-	//std::cout<<file_temp.capacity()<<std::endl;
-	//std::cout<<file_temp.max_size()<<std::endl;
-	int i,j;	
-for(j=1;j<=cols;j++)
-	{
-		for(i=1;i<rows;i++)
-		{
-		//	std::cout<<cell(j,i)<<" ";
-			//file_temp.append(cell(j,i));
-		//	cell_iter(i, j, begin, end);
-			append(file_temp,i,j);
-			//std::cin >> k;
-			file_temp.append(";");
-			
-		}
-//		std::cout << file_temp.size();
-		
-	
-//		std::cin >> k;
-	file_temp.append("\n");
-	}
-file=file_temp;
-file_temp.clear();
-//std::cout << file;
-index();
-
-//cols=j;
-//cols=rows;
-//rows=j;
-
-}
-*/
-void csv_file::transponse() 
-{	file_temp.clear();
-	file_temp.reserve(file.size());
-	int i,j;	
-	for(i=1;i<=cols;++i)
-	{
-		for(j=1;j<rows;++j)
-		{
-		//	std::cout<<cell(j,i)<<" ";
-			file_temp.append(cell(j,i));
-		//	std::cout << cell(j, i)<<std::endl;
-			file_temp.append(";");
-		}
-		
-		file_temp.append(cell(rows,i));
-		file_temp.append("\n");
-	}
-file=file_temp;
-file_temp.clear();
-index();
-
-//cols=j;
-//cols=rows;
-//rows=j;
-
-}
 
 void csv_file::print()
 {int i,j;
@@ -283,94 +184,7 @@ for(i=1;i<=rows;i++)
 	}
 }
 
-void csv_file::delete_cr(std::vector<int>& dcolumns,std::vector<int>& drows)
-{
-	
-std::sort(drows.begin(),drows.end());
-std::sort(dcolumns.begin(),dcolumns.end());
-std::vector<int> x;
-std::vector<int> y;
 
-
-int k=0;
-int i=1;
-while(i<=rows){
-if(i==drows[k]){k++; while(drows[k-1]==drows[k]){k++;} }    
-else {x.push_back(i);}
-i++;
-}
-
-k=0;
-i=1;	
-while(i<=cols){
-if(i==dcolumns[k]){k++; while(dcolumns[k-1]==dcolumns[k]){k++;} }    
-else {y.push_back(i);}
-i++;
-}
-	
-
-file_temp.reserve(file.size());
-	int j;	
-	for(i=0;i<x.size();++i)
-	{
-		for(j=0;j<y.size();++j)
-		{
-		//	std::cout<<cell(j,i)<<" ";
-			file_temp.append(cell(x[i],y[j]));
-			file_temp.append(";");
-		}
-	file_temp.append("\n");
-	}
-file=file_temp;
-file_temp.clear();
-index();
-
-
-}
-
-void csv_file::delete_cr(int dcolumns, int drows)
-{
-
-	std::vector<int> x;
-	std::vector<int> y;
-
-
-
-	int i = 1;
-	while (i <= rows) {
-		if (i == drows) {}
-		else { x.push_back(i); }
-		i++;
-	}
-
-
-	i = 1;
-	while (i <= cols) {
-		if (i == dcolumns) {}
-		else { y.push_back(i); }
-		i++;
-	}
-
-
-	file_temp.reserve(file.size());
-	int j;
-	for (i = 0; i < x.size(); ++i)
-	{
-		for (j = 0; j < y.size(); ++j)
-		{
-			//	std::cout<<cell(j,i)<<" ";
-			//append(file_temp,)
-			file_temp.append(cell(x[i], y[j]));
-			file_temp.append(";");
-		}
-		file_temp.append("\n");
-	}
-	file = file_temp;
-	file_temp.clear();
-	index();
-
-
-}
 
 void csv_file::check()
 {
@@ -436,33 +250,6 @@ else return false;
 
 
 
-/*
-void csv_file::loop(std::vector<std::pair<int, int  >> LIST)
-{
-
-	
-
-	file_temp.reserve(file.size());
-	int i,j;
-	for (i = 0; i < LIST.size(); ++i)
-	{
-		
-			file_temp.append(cell(LIST[i].first, LIST[i].second));
-			file_temp.append(";");
-		
-		file_temp.append("\n");
-	}
-	file = file_temp;
-	file_temp.clear();
-	index();
-
-
-
-}
-
-*/
-
-
 //void csv_engine::search_primary_key() {
 
 
@@ -471,30 +258,6 @@ void csv_file::loop(std::vector<std::pair<int, int  >> LIST)
 
 //}
 
-void csv_file::swap(int m, int n) 
-{
-
-	file_temp.clear();
-	file_temp.reserve(file.size());
-	for (int i = 1; i <= rows; i++)
-	{
-		for (int j = 1; j <= cols; j++)
-		{
-			if (i == m && j == n) { file_temp.append(cell(j, i)); }
-			else { file_temp.append(cell(i, j)); }
-			//	std::cout << cell(j, i)<<std::endl;
-			file_temp.append(";");
-		}
-
-		file_temp.append(cell(rows, i));
-		file_temp.append("\n");
-	}
-	file = file_temp;
-	file_temp.clear();
-	index();
-
-
-}
 
 
 bool csv_file::operator== (const csv_file& lhs)

@@ -25,15 +25,18 @@ int Nrows();
 int Ncols();
 bool OK();
 void transponse();
-void transponse0();
 void print();
-void delete_cr(std::vector<int>& dcolumns,std::vector<int>& drows);
-void delete_cr(int, int drows);
 void check();
 bool status();
-void search_primary_column();
 void search_primary_key();
-void swap(int, int);
+void swap_rows(int, int);
+void swap_rows(std::vector<int>);
+void swap_cols(int, int);
+void rcdelete(std::vector<int>,std::vector<int>);
+//void delete_row(int);
+//void delete_col(int);
+
+
 bool operator== ( const csv_file& lhs);
 //bool operator==(const csv_file & rhs);
 private:
@@ -45,5 +48,7 @@ bool  primary_key_unique;
 int primary_column;
 int rows,cols;	
 bool file_is_OK;
+std::vector<int> delete_row;
+std::vector<int> delete_col;
 int size;
 };

@@ -20,8 +20,13 @@ std::cin>>i;
 //test.transponse0();
 //test.print();
 start_t = std::chrono::system_clock::now();
-
-test.transponse();
+std::vector<int> Ax{25};
+std::vector<int> Bx{25};
+test.rcdelete(Ax,Bx);
+test.check();
+test.status();
+test.swap_cols(1,24);
+//test.transponse();
 end_t = std::chrono::system_clock::now();
 delta = end_t - start_t;
 std::cout << delta.count() << std::endl;
@@ -31,7 +36,7 @@ test.status();
 //test.print();
 //std::cin>>i;
 
-
+/*
 start_t = std::chrono::system_clock::now();
 
 test.transponse();
@@ -49,7 +54,7 @@ csv_file test2(file);
 
 if (test2 == test) { std::cout << "success"; }
 else std::cout << "nope";
-/*
+
 start_t=std::chrono::system_clock::now();
 test.transponse();
 end_t=std::chrono::system_clock::now();
