@@ -18,13 +18,10 @@ csv_file(char *filename);
 csv_file(std::string input);
 void write(char* filename);
 void cell_iter(int i, int j, siterator& begin, siterator& end);
-void append(std::string& str, int, int);
 std::string cell(int i,int j);
-//void read(char *filename);
 void show_header();
 int Nrows();	
 int Ncols();
-bool OK();
 void transponse();
 void print();
 void check();
@@ -35,13 +32,8 @@ void swap_rows(std::vector<int>);
 void swap_cols(int, int);
 void rcdelete(std::vector<int>,std::vector<int>);
 void set_primary_key();
-
-//void delete_row(int);
-//void delete_col(int);
-
-
+void sort(int);
 bool operator== ( const csv_file& lhs);
-//bool operator==(const csv_file & rhs);
 private:
 std::string file;
 std::string file_temp;
@@ -50,7 +42,7 @@ std::vector<char> whitelist;
 bool  primary_key_unique;
 int primary_column;
 int rows,cols;	
-bool file_is_OK;i
+bool file_is_OK;
 std::vector<bool> unique_col;
 std::vector<int> delete_row;
 std::vector<int> delete_col;

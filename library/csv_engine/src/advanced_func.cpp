@@ -99,7 +99,7 @@ void csv_file::swap_rows(int m, int n)
 
 }
 
-bool file_csv::engine clean()
+bool csv_file::clean()
 {
 whitelist.push_back('\n');
 whitelist.push_back(' ');
@@ -211,7 +211,7 @@ index();
 
 }
 
-std::vector<bool> csv_file::set_primary_key()
+void csv_file::search_primary_key()
 {	int size;
 	unique_key.clear();
 	//std::vector<bool> unique;
@@ -228,7 +228,26 @@ std::vector<bool> csv_file::set_primary_key()
 	
 	}
 
-return(unique);
+}
+
+void csv_file::sort(int m)
+{
+	int i;
+	std::vector<std::pair<std::string,int> arr;
+	
+
+	for(int i=1;i<=rows;i++){
+	arr.push_back(std::make_pair(cell(i,m),i));
+	}
+	sort(arr.begin(),arr.end());
+	
+	std::vector<int> num;
+	for(int i=0;i<rows;i++){
+	num.push_back(arr[i].second);	
+	}
+	arr.clear();
+	swap_rows(num);
+	
 }
 
 
