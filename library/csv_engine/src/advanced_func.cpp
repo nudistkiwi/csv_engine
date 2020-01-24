@@ -99,6 +99,38 @@ void csv_file::swap_rows(int m, int n)
 
 }
 
+bool file_csv::engine clean()
+{
+whitelist.push_back('\n');
+whitelist.push_back(' ');
+whitelist.push_back('\t');
+
+siterator iter;
+int i;
+file_temp.reserve(file.size());
+for(iter=file.begin();iter!=file.end();iter++ )
+{
+if(int(*iter)>31){file_temp.append(1,*iter);}
+else{
+for(i=1;i<whitelist.size();i++){
+if(whitelist[i]==*iter){
+	file_temp(1,*iter);
+	break;}}
+
+}
+}
+
+file=file_temp;
+file_temp.clear();
+index();
+
+
+
+
+}
+
+
+
 void csv_file::swap_rows(std::vector<int> order) 
 {	int m=0;
 	std::vector<int> check=order;
@@ -178,6 +210,28 @@ index();
 }
 
 }
+
+std::vector<bool> csv_file::set_primary_key()
+{	int size;
+	unique_key.clear();
+	//std::vector<bool> unique;
+	std::set<std::string> list;
+	for(int j=1;j<=cols;j++){list.clear();
+	for(int i=1;i<=rows;i++){
+		size=list.size();
+		list.insert(cell(i,j));
+		if(size!=list.size()){break;}
+	}
+	if(list.size()==rows){unique.push_back(true);
+		else{unique_key.push_back(false);}
+	}
+	
+	}
+
+return(unique);
+}
+
+
 /*
 
 void csv_file::transponse() 

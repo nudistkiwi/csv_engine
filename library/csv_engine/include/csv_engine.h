@@ -12,6 +12,7 @@ public:
 typedef std::string::iterator siterator;
 bool index();
 bool index(char delimiter);
+bool clean();
 //void clean();
 csv_file(char *filename);
 csv_file(std::string input);
@@ -33,6 +34,8 @@ void swap_rows(int, int);
 void swap_rows(std::vector<int>);
 void swap_cols(int, int);
 void rcdelete(std::vector<int>,std::vector<int>);
+void set_primary_key();
+
 //void delete_row(int);
 //void delete_col(int);
 
@@ -43,11 +46,12 @@ private:
 std::string file;
 std::string file_temp;
 std::vector<siterator> indices;
-std::vector<char> deletion;
+std::vector<char> whitelist;
 bool  primary_key_unique;
 int primary_column;
 int rows,cols;	
-bool file_is_OK;
+bool file_is_OK;i
+std::vector<bool> unique_col;
 std::vector<int> delete_row;
 std::vector<int> delete_col;
 int size;
