@@ -23,10 +23,14 @@ auto end_t=std::chrono::system_clock::now();
 std::chrono::duration<double> delta=end_t-start_t;
 std::cout<<delta.count()<<std::endl;
 test.deleteC('\r');
+
+//test.transponse();
 test.clean();
-test.search_primary_key();
-test.check();
-test.status();
+std::vector<int> asd = {2,4,1,3,5};
+test.sort(5);
+//test.search_primary_key();
+//test.check();
+//test.status();
 //test.clean();
 
 //test.loop(&testd);

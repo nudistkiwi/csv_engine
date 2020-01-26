@@ -171,15 +171,17 @@ void csv_file::swap_rows(std::vector<int> order)
 {	int m=0;
 	std::vector<int> check=order;
 	std::sort(check.begin(),check.end());
-	while(m++<rows && check[m]==m);
-	if(m==rows){
+//	while(m<rows && check[m]==(m+1)) std::cout<< check[m]<<" ";
+//	std::cout << m << "  " << rows;
+//	if(m==rows){
 	int l;	
 	file_temp.clear();
 	file_temp.reserve(file.size());
 	for (int i = 1; i <= rows; i++)
 	{		
 		for (int j = 1; j < cols; j++)
-		{	l=order[i];
+		{	l=order[i-1];
+		std::cout << l << std::endl;
 			file_temp.append(cell(l, j));
 			file_temp.append(";");
 		}
@@ -189,7 +191,7 @@ void csv_file::swap_rows(std::vector<int> order)
 	file = file_temp;
 	file_temp.clear();
 	index();
-	}
+//	}
 
 }
 
@@ -289,7 +291,8 @@ void csv_file::sort(int m)
 	
 	std::vector<int> num;
 	for(int i=0;i<rows;i++){
-	num.push_back(arr[i].second);	
+	num.push_back(arr[i].second);
+	//std::cout << num.back();
 	}
 	arr.clear();
 	swap_rows(num);
@@ -330,7 +333,6 @@ void csv_file::loop(std::string (*func)(int, int))
 
 
 
-/*
 
 void csv_file::transponse() 
 {	file_temp.clear();
@@ -358,4 +360,4 @@ index();
 //rows=j;
 
 }
-*/
+
