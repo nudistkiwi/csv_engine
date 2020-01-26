@@ -14,10 +14,10 @@ bool csv_file::index() {
 
 bool csv_file::index(char delimiter)
 {//	std::cout<<sizeof(siterator)<<" "<<sizeof(int)<<std::endl;
-	std::cout<<"Indexing File..."<<std::endl;
+	//std::cout<<"Indexing File..."<<std::endl;
 	std::vector<siterator> deletion_targets;
 	siterator last_valid_line;	
-	
+	row_items.clear();
 	//char delimiter=',';
 	char newline='\n';
 	int k;
@@ -33,8 +33,8 @@ bool csv_file::index(char delimiter)
 	indices.push_back(iter);
 	for(iter=file.begin();iter!=file.end(); ++iter)
 	{
-	//std::cout<<" "<<int(*iter);	
-
+	
+		//if (*iter == '\r') { *iter = 'a'; }
 	if ('"' == *iter) {
 		iter++;
 			
@@ -50,6 +50,11 @@ bool csv_file::index(char delimiter)
 
 		if ((newline == *iter || int(*iter) == 10) && line_empty==false)
 		{	//std::cin>>k;
+			//std::cout << int(*iter) <<" "<<int('\n')<< std::endl;
+			//if (*iter == '\n') { *iter = '\r'; }
+			
+			//std::cout << " " << int(*iter);
+			//std::cin >> k;
 			++rows;
 			line_empty=true;
 			indices.push_back(iter);
@@ -62,10 +67,14 @@ bool csv_file::index(char delimiter)
 						return false;	
 			}
 			if (i == cols) { last_valid_line = iter; }
+			row_items.push_back(i);
+
 			i = 1;
+
 		}
 	
 	}
+
 	indices.push_back(iter);
 	--rows;
 	//if(file_is_OK) std::cout<<"OK"<<std::endl;
@@ -165,13 +174,13 @@ int csv_file::Ncols()
 	if(file_is_OK) return(cols);
 	else return(-1);
 	}
-
+/*
 bool csv_file::OK()
 	{
 	if(file_is_OK) return(true);
 	else return(false);
 	}
-
+	*/
 void csv_file::print()
 {int i,j;
 for(i=1;i<=rows;i++)

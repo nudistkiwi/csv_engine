@@ -1,8 +1,18 @@
 #include <csv_engine.h>
 #include <chrono>
+
+
+std::string testd(int i, int j) {
+	return("hallo");
+}
+
+
+
 int main(){
 int i,j;
 int k;
+
+
 
 //string all=ingest_xlsx(fi);
 char file[]="BA_DATA.csv";
@@ -12,9 +22,18 @@ csv_file test(file);
 auto end_t=std::chrono::system_clock::now();
 std::chrono::duration<double> delta=end_t-start_t;
 std::cout<<delta.count()<<std::endl;
+test.deleteC('\r');
+test.clean();
+test.search_primary_key();
 test.check();
 test.status();
+//test.clean();
+
+//test.loop(&testd);
+char f[] = "hi.csv";
+test.write(f);
 std::cin>>i;
+/*
 //std::cout<<"cols  "<<test.Ncols()<<std::endl;
 //std::cout<<"rows  "<<test.Nrows()<<std::endl;
 //test.transponse0();

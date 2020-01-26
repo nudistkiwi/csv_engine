@@ -3,6 +3,8 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <map>
+#include <set>
 #include <algorithm>
 
 
@@ -12,7 +14,7 @@ public:
 typedef std::string::iterator siterator;
 bool index();
 bool index(char delimiter);
-bool clean();
+void clean();
 //void clean();
 csv_file(char *filename);
 csv_file(std::string input);
@@ -33,7 +35,12 @@ void swap_cols(int, int);
 void rcdelete(std::vector<int>,std::vector<int>);
 void set_primary_key();
 void sort(int);
+void loop(std::string (*func)(int,int));
 bool operator== ( const csv_file& lhs);
+void replace(char,char);
+void deleteC(char);
+
+
 private:
 std::string file;
 std::string file_temp;
@@ -43,6 +50,7 @@ bool  primary_key_unique;
 int primary_column;
 int rows,cols;	
 bool file_is_OK;
+std::vector<int> row_items;
 std::vector<bool> unique_col;
 std::vector<int> delete_row;
 std::vector<int> delete_col;
