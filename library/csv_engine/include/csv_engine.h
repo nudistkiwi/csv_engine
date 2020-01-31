@@ -39,6 +39,7 @@ void loop(std::string (*func)(int,int));
 bool operator== ( const csv_file& lhs);
 void replace(char,char);
 void deleteC(char);
+void type_col();
 
 
 private:
@@ -49,6 +50,8 @@ std::vector<char> whitelist;
 bool  primary_key_unique;
 int primary_column;
 int rows,cols;	
+std::vector<std::string> field_types;
+std::vector<std::string> col_type;
 bool file_is_OK;
 std::vector<int> row_items;
 std::vector<bool> unique_col;
