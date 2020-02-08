@@ -40,13 +40,17 @@ bool operator== ( const csv_file& lhs);
 void replace(char,char);
 void deleteC(char);
 void type_col();
-
+void set_data_type();
+void set_data_type(std::vector<std::string>);
+std::string  get_data_type(int);
+void basic_type();
 
 private:
 std::string file;
 std::string file_temp;
 std::vector<siterator> indices;
 std::vector<char> whitelist;
+std::vector<std::string> data_type;
 bool  primary_key_unique;
 int primary_column;
 int rows,cols;	
@@ -58,4 +62,5 @@ std::vector<bool> unique_col;
 std::vector<int> delete_row;
 std::vector<int> delete_col;
 int size;
+std::vector<std::string> basic_types;
 };

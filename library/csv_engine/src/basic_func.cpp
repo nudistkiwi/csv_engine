@@ -100,6 +100,21 @@ bool csv_file::index(char delimiter)
 //
 //
 
+void csv_file::basic_type()
+{
+basic_types.push_back("last name");
+basic_types.push_back("first name");
+basic_types.push_back("name");
+basic_types.push_back("email");
+basic_types.push_back("ip");
+basic_types.push_back("exceldate");
+basic_types.push_back("server");
+basic_types.push_back("mobilenr");
+basic_types.push_back("other");
+
+}
+
+
 
 csv_file::csv_file(std::string input)
 	{
@@ -157,7 +172,7 @@ std::string  csv_file::cell(int i,int j)
 void csv_file::show_header()
 	{
 	int i;
-	for(i=1;i<cols;++i)
+	for(i=1;i<=cols;++i)
 	 {
     std::cout<<i<<". "<<csv_file::cell(1,i)<<std::endl;
 	 }	

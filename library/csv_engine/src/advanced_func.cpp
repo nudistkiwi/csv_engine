@@ -48,6 +48,34 @@ void csv_file::delete_row(int i)
 
 
 */
+void csv_file::set_data_type()
+{
+	std::string type;
+	data_type.clear();
+	for(int i=1;i<=cols;i++)
+	{
+	std::cout<<cell(1,i)<<"   "<<cell(2,i)<<std::endl;
+	std::cin>>type;
+	data_type.push_back(type);
+	}
+
+}
+
+std::string csv_file::get_data_type(int i)
+{
+return(data_type[i]);
+
+}
+
+void csv_file::set_data_type(std::vector<std::string> A)
+{
+	data_type.clear();
+	data_type=A;
+
+}
+
+
+
 
 void csv_file::deleteC(char A)
 {
@@ -181,7 +209,7 @@ void csv_file::swap_rows(std::vector<int> order)
 	{		
 		for (int j = 1; j < cols; j++)
 		{	l=order[i-1];
-		std::cout << l << std::endl;
+		//std::cout << l << std::endl;
 			file_temp.append(cell(l, j));
 			file_temp.append(";");
 		}
@@ -322,12 +350,7 @@ void csv_file::loop(std::string (*func)(int, int))
 	file = file_temp;
 	file_temp.clear();
 	index();
-
-
 	
-
-
-
 }
 
 
