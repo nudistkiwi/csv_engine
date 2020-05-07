@@ -1,116 +1,49 @@
 #include <csv_engine.h>
-/*
-void csv_file::swap_rows(int n,int m)
-{
-	std::pair<int,int> p(i,j);	
-	swap_rows.push_back(p);
-	int i,j;	
-	for(i=1;i<=cols;++i)
-	{	
-		for(j=1;j<rows;++j)
-		{
-		//	std::cout<<cell(j,i)<<" ";
-			file_temp.append(cell(j,i));
-		//	std::cout << cell(j, i)<<std::endl;
-			file_temp.append(";");
-		}
-		
-		file_temp.append(cell(rows,i));
-		file_temp.append("\n");
-	}
-file=file_temp;
-file_temp.clear();
-index();
 
 
 
+void csv_file::collapse(){
 
 
 }
-void csv_file::swap_cols(int i,int j)
-{
-	std::pair<int,int> p(i,j);	
-	swap_cols.push_back(p);
-
-}
-
-void csv_file::delete_col(int i)
-{
-	delete_col.push_back(i);
-
-}
-
-void csv_file::delete_row(int i)
-{
-	delete_row.push_back(i);
-
-}
 
 
-*/
-void csv_file::set_data_type()
-{
-	std::string type;
-	data_type.clear();
-	for(int i=1;i<=cols;i++)
+void csv_file::show_header()
 	{
-	std::cout<<cell(1,i)<<"   "<<cell(2,i)<<std::endl;
-	std::cin>>type;
-	data_type.push_back(type);
-	}
-
-}
-
-std::string csv_file::get_data_type(int i)
-{
-return(data_type[i]);
-
-}
-
-void csv_file::set_data_type(std::vector<std::string> A)
-{
-	data_type.clear();
-	data_type=A;
-
-}
-
-
-
-
-void csv_file::deleteC(char A)
-{
-
-
-	siterator iter;
 	int i;
-	file_temp.reserve(file.size());
-	for (iter = file.begin(); iter != file.end(); iter++)
-	{
-		if (*iter !=A ) { file_temp.append(1, *iter); }
-	}
-	
-
-	file = file_temp;
-	file_temp.clear();
-	index();
-
-
-
-}
-
-void csv_file::replace(char A, char B) 
-{
-	siterator iter;
-	for (iter = file.begin(); iter != file.end(); ++iter) 
-	{
-		if (*iter == A) { *iter = B; }
+	for(i=1;i<=cols;++i)
+	 {
+    std::cout<<i<<". "<<csv_file::cell(1,i)<<std::endl;
+	 }	
 	}
 
 
+
+
+void csv_file::print()
+{int i,j;
+
+//std::cout<<cell(1,1)<<" ";
+for(i=1;i<=rows;i++)
+	{
+		for(j=1;j<cols;j++)
+		{
+			std::cout<<cell(i,j)<<" ";
+		}
+	std::cout<<cell(i,cols);
+	std::cout<<std::endl;
+	}
 }
 
 
-void csv_file::swap_cols(int m, int n) 
+
+
+
+
+
+
+
+void csv_file::swap_cols(int m, int n)
 {
 	int l,k;
 	if(m>n){k=m;m=n;n=k;}
@@ -127,113 +60,28 @@ void csv_file::swap_cols(int m, int n)
 		}
 		if(n==cols)file_temp.append(cell(i,m ));
 		else file_temp.append(cell(i, cols));
-		file_temp.append("\n");
+		if(i<rows) file_temp.append("\n");
 	}
 	file = file_temp;
 	file_temp.clear();
-	index();
-
-
-}
-void csv_file::swap_rows(int m, int n) 
-{
-	int l,k;
-	if(m>n){k=m;m=n;n=k;}
-	
-	file_temp.clear();
-	file_temp.reserve(file.size());
-	for (int i = 1; i <= rows; i++)
-	{	l=i;	
-		if(i==m){l=n;}
-		if(i==n){l=m;} 
-		for (int j = 1; j < cols; j++)
-		{
-			file_temp.append(cell(l, j));
-			file_temp.append(";");
-		}
-		file_temp.append(cell(i, cols));
-		file_temp.append("\n");
-	}
-	file = file_temp;
-	file_temp.clear();
+	file_begin=file.begin();
+	file_end=file.end();
 	index();
 
 
 }
 
-void csv_file::clean()
-{
-whitelist.push_back('\n');
-whitelist.push_back(' ');
-whitelist.push_back('\t');
-
-siterator iter;
-int i;
-file_temp.reserve(file.size());
-for(iter=file.begin();iter!=file.end();iter++ )
-{
-if(int(*iter)>31 || int(*iter) < 0){file_temp.append(1,*iter);}
-else {
-	//if (int(*iter) < 0) { std::cout << int(*iter) << " "; }
-	//std::cout << int(*iter) << std::endl;
-	//std::cin >> i;
-for(i=0;i<whitelist.size();i++){
-if(whitelist[i]==*iter){
-	file_temp.append(1,*iter);
-	break;}}
-
-}
-}
-
-file=file_temp;
-file_temp.clear();
-index();
 
 
 
-
-}
-
-
-void csv_file::swap_rows(std::vector<int> order) 
-{	int m=0;
-	std::vector<int> check=order;
-	std::sort(check.begin(),check.end());
-//	while(m<rows && check[m]==(m+1)) std::cout<< check[m]<<" ";
-//	std::cout << m << "  " << rows;
-//	if(m==rows){
-	int l;	
-	file_temp.clear();
-	file_temp.reserve(file.size());
-	for (int i = 1; i <= rows; i++)
-	{		
-		for (int j = 1; j < cols; j++)
-		{	l=order[i-1];
-		//std::cout << l << std::endl;
-			file_temp.append(cell(l, j));
-			file_temp.append(";");
-		}
-		file_temp.append(cell(i, cols));
-		file_temp.append("\n");
-	}
-	file = file_temp;
-	file_temp.clear();
-	index();
-//	}
-
-}
-
-
-
-
-void csv_file::rcdelete(std::vector<int> delete_rows,std::vector<int> delete_cols)
-{	if(delete_rows.size()>0 || delete_col.size()>0){
-	file_temp.clear();
+void csv_file::cdelete(std::vector<int> delete_cols)
+{	if(delete_rows.size()>0 || delete_cols.size()>0){
+	file_temp.clear);
 	file_temp.reserve(file.size());
 	int i,j,l,m,n,k;
 	k=0;
-	std::sort(delete_rows.begin(),delete_rows.end());	
-	std::sort(delete_cols.begin(),delete_cols.end());	
+	std::sort(delete_rows.begin(),delete_rows.end());
+	std::sort(delete_cols.begin(),delete_cols.end());
 	std::vector<int> index_col;
 	std::vector<int> index_row;
 
@@ -241,7 +89,7 @@ void csv_file::rcdelete(std::vector<int> delete_rows,std::vector<int> delete_col
  	k=0;
 	while(i++<cols)
 	{
-	if(i!=delete_cols[k]){index_col.push_back(i); }  
+	if(i!=delete_cols[k]){index_col.push_back(i); }
 	else {k++; while(delete_cols[k]==delete_cols[k-1]){k++;}}
 	}
 
@@ -249,13 +97,13 @@ void csv_file::rcdelete(std::vector<int> delete_rows,std::vector<int> delete_col
  	k=0;
 	while(i++<rows)
 	{
-	if(i!=delete_rows[k]){index_row.push_back(i); }  
+	if(i!=delete_rows[k]){index_row.push_back(i); }
 	else {k++; while(delete_rows[k]==delete_rows[k-1]){k++;}}
 	}
 
 	for(i=0;i<index_row.size();++i){
 		{
-			l=index_row[i];	
+			l=index_row[i];
 		for(j=0;j<index_col.size()-1;++j)
 		{
 		//	std::cout<<cell(j,i)<<" ";
@@ -266,66 +114,28 @@ void csv_file::rcdelete(std::vector<int> delete_rows,std::vector<int> delete_col
 					    }
 		}
 		file_temp.append(cell(l,index_col.back()));
-		file_temp.append("\n");
+			if(i<index_row.size()-1) file_temp.append("\n");
 	}
 
 
 file=file_temp;
 file_temp.clear();
+file_begin=file.begin();
+file_end=file.end();
 index();
 }
-
 }
 
-void csv_file::search_primary_key()
-{	int size;
-	unique_col.clear();
-	//std::vector<bool> unique;
-	std::set<std::string> list;
-	for(int j=1;j<=cols;j++){list.clear();
-	for(int i=1;i<=rows;i++){
-		size=list.size();
-		list.insert(cell(i,j));
-		if(size==list.size()){break;}
-	}
-
-	std::cout << rows << "  " << list.size() << std::endl;
-	if (list.size() == rows)  unique_col.push_back(true); 
-		else unique_col.push_back(false);
-	
-	}
-	
-	
-	for (int i = 1; i <= cols; ++i)
-	{
-		std::cout << i << ". " << csv_file::cell(1, i) <<"..."<<unique_col[i-1]<< std::endl;
-	}
-
-
-	}
 
 
 
-void csv_file::sort(int m)
-{
-	int i;
-	std::vector<std::pair<std::string,int>> arr;
-	
 
-	for(int i=1;i<=rows;i++){
-	arr.push_back(std::make_pair(cell(i,m),i));
-	}
-	std::sort(arr.begin(),arr.end());
-	
-	std::vector<int> num;
-	for(int i=0;i<rows;i++){
-	num.push_back(arr[i].second);
-	//std::cout << num.back();
-	}
-	arr.clear();
-	swap_rows(num);
-	
-}
+
+
+
+
+
+
 
 
 void csv_file::loop(std::string (*func)(int, int))
@@ -336,8 +146,8 @@ void csv_file::loop(std::string (*func)(int, int))
 	file_temp.reserve(file.size());
 	for (int i = 1; i <= rows; i++)
 	{
-	
-		
+
+
 		for (int j = 1; j < cols; j++)
 		{
 			file_temp.append(func(i, j));
@@ -349,38 +159,319 @@ void csv_file::loop(std::string (*func)(int, int))
 	}
 	file = file_temp;
 	file_temp.clear();
+	file_begin=file.begin();
+	file_end=file.end();
 	index();
-	
+
 }
 
 
 
 
 
-void csv_file::transponse() 
-{	file_temp.clear();
+void csv_file::transponse()
+{	//file_temp.clear();
+
+file_temp.clear();
 	file_temp.reserve(file.size());
-	int i,j;	
-	for(i=1;i<=cols;++i)
+	
+	for (int j = 1; j <= cols; j++)
+		{	
+	for (int i = 1; i <= rows; i++)
 	{
-		for(j=1;j<rows;++j)
+		
+		//std::cout << l << std::endl;
+			file_temp.append(cell(i, j));
+			std::cout<<cell(i, j)<<std::endl;
+			if(i<rows) file_temp.append(";");
+			if(j!=cols && i==rows) file_temp.append("\n");
+		}
+		//file_temp.append(cell(i, cols));
+		//if(l!=rows) file_temp.append("\n");
+	}
+	file = file_temp;
+	write("gjsg.csv");
+	file_temp.clear();
+	file_begin=file.begin();
+	file_end=file.end();
+	index();
+
+
+}
+
+
+void csv_file::insert(std::string str){
+
+if(cols>0){
+if(current_col>0){	
+if(current_col<cols){file.append(";");file.append(str);current_col++;}
+else if(current_col==cols){file.append("\n");file.append(str);current_col=1;}
+}
+else
+{
+file.clear();
+file.append(str);
+current_col=1;
+}
+
+}
+}
+/*
+void sort(int k,int l){
+//csv_file temp=*this;
+csv_file temp();
+//sort(k);
+int=1;
+int j=1;
+int start=1;
+int end;
+for(int i=1;i<rows;i++)
+{
+if(cell(i,k)!=cell(i+1,k)){
+end=i;
+csv_file help=sub_csv(start,end,1,cols);
+help.sort(l);
+temp=temp+help;
+start=end+1;
+}
+
+
+}
+
+}
+/*
+void sort(){
+//csv_file temp=*this;
+csv_file temp();
+//sort(k);
+int=1;
+int j=1;
+int start=1;
+int end;
+sort(1);
+for(int i=1;i<cols;i++)
+{	
+sort(i,i+1);
+
+
+}
+
+}*/
+
+
+csv_file csv_file::operator+(const csv_file& lhs)
+{
+
+
+
+if(cols==lhs.cols){
+}
+
+csv_file temp("");
+
+for (int i = 1; i <= rows; i++)
+	{	
+		for (int j = 1; j < cols; j++)
 		{
-		//	std::cout<<cell(j,i)<<" ";
-			file_temp.append(cell(j,i));
-		//	std::cout << cell(j, i)<<std::endl;
-			file_temp.append(";");
+			
+			temp.file.append(cell(i, j));
+			temp.file.append(";");
+		}
+		temp.file.append(cell(i, cols));
+		if(i<rows ) temp.file.append("\n");
+	}	
+
+
+
+for (int i = 1; i <= lhs.rows; i++)
+	{	
+		for (int j = 1; j < lhs.cols; j++)
+		{
+		//	std::string asdf=lhs.cell(i, j);
+			temp.file.append(lhs.cell(i, j));
+			temp.file.append(";");
+		}
+		temp.file.append(cell(i, lhs.cols));
+		if(i<lhs.rows ) temp.file.append("\n");
+	}	
+
+
+
+
+temp.index();
+return temp;
+
+
+}
+
+
+
+csv_file csv_file::operator*(const csv_file& lhs)
+{
+
+csv_file temp("");
+if(rows==lhs.rows){
+
+
+
+for (int i = 1; i <= rows; i++)
+	{	
+		for (int j = 1; j < cols; j++)
+		{
+			
+			temp.file.append(cell(i, j));
+			temp.file.append(";");
+		}
+			for (int j = 1; j < lhs.cols; j++)
+		{
+			
+			temp.file.append(lhs.cell(i, j));
+			temp.file.append(";");
 		}
 		
-		file_temp.append(cell(rows,i));
-		file_temp.append("\n");
-	}
+		temp.file.append(lhs.cell(i, lhs.cols));
+		if(i<rows ) temp.file.append("\n");
+	}	
+
+
+
+
+
+}
+temp.index();
+return temp;
+}
+
+
+bool csv_file::operator== (const csv_file& lhs)
+{
+	if (file == lhs.file){ return(true);}
+	else{ return(false);}
+
+
+}
+
+
+
+csv_file csv_file::operator()(int m, int n,int k,int l)
+{
+
+
+
+csv_file temp("");
+if(k==1 && l==cols){
+int g=cols*(m-1);
+temp.file.append(indices[m],indices[n]);
+
+}
+else{
+for (int i = m; i <= n; i++)
+	{	
+		for (int j = k; j < l; j++)
+		{
+			
+			temp.insert(cell(i, j));
+			temp.insert(";");
+		}
+		temp.insert(cell(i, l));
+		if(i<n ) temp.insert("\n");
+	}	
+
+}
+temp.index();
+return temp;
+
+}
+
+
+
+std::string csv_file::operator()(int i, int j)
+{
+/*
+siterator end=line_break[i];
+siterator start;
+int k=0;
+while(k!=j)
+{ 
+
+
+if(';'==end || '/n'==end ){k++;}
+
+start=end;
+end++;
+}
+*/
+return("");
+
+}
+
+
+void csv_file::check()
+{
+/*
+
+std::vector<int> del1;
+std::vector<int> del2;
+
+
+int l;
+		int k=1;
+if(errors.size()==0){
+
+	bool line_ko=true;
+while(line_ko){
+
+	line_ko=false;
+	for(int i=1;i<=cols;i++){
+		if(cell(k,i)==""){
+			//std::cout<<k<<std::endl;
+		//	std::cin>>l;
+			line_ko=true;
+			//del1.push_back(k);
+			break;
+		}
+		
+		}
+
+k++;
+}
+
+k = cols * (k - 2) ;
+std::cout<<k<<std::endl;
+
+file_temp=std::string(indices[k]+1,file.end());
+std::cin>>k;
 file=file_temp;
+write("jgsdasj.csv");
+
 file_temp.clear();
 index();
+//rcdelete(del1);
+//std::cout<<file<<std::endl;
+//
+*/
+size=sizeof(char)*int(file_end-file_begin);
+int i=1;
 
-//cols=j;
-//cols=rows;
-//rows=j;
+int duplicates=0;
+//std::sort(primary.begin(),primary.end());
+
+//			}
+siterator iter;
+int rowc=0;
+int colc=0;
+
+
+//std::vector<int> row_cols;
+//for(iter=file_begin;iter!=file_end;++iter){
+//if(*iter==';'){++colc;}
+//if(*iter=='\n'){colc=0;row_cols.push_back(colc);}
+//}
+
+//std::sort(row_cols.begin(),row_cols.end());
+//if(row_cols.front()==row_cols.back()){file_is_OK=true;}
+
+
 
 }
 

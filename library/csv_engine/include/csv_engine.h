@@ -8,59 +8,66 @@
 #include <algorithm>
 
 
-class csv_file 
+class csv_file
 {
+
 public:
 typedef std::string::iterator siterator;
-bool index();
-bool index(char delimiter);
-void clean();
-//void clean();
+std::vector<int> index();
+std::vector<int> index(char delimiter);
+
+//void crop();
 csv_file(char *filename);
 csv_file(std::string input);
+//csv_file(siterator&,siterator&);
+csv_file();
+~csv_file();
 void write(char* filename);
-void cell_iter(int i, int j, siterator& begin, siterator& end);
-std::string cell(int i,int j);
-void show_header();
-int Nrows();	
+std::string cell(int i,int j)const;
+std::string celll(int i,int j)const;
+//void show_header();
+int Nrows();
 int Ncols();
-void transponse();
-void print();
-void check();
+//void transponse();
+//void print();
+//void check();
 bool status();
-void search_primary_key();
+void clean();
+void replace(std::string,std::string);
 void swap_rows(int, int);
 void swap_rows(std::vector<int>);
-void swap_cols(int, int);
-void rcdelete(std::vector<int>,std::vector<int>);
-void set_primary_key();
+//void swap_cols(int, int);
+//void cdelete(std::vector<int>,std::vector<int>);
+void rdelete(std::vector<int>);
 void sort(int);
-void loop(std::string (*func)(int,int));
-bool operator== ( const csv_file& lhs);
-void replace(char,char);
-void deleteC(char);
-void type_col();
-void set_data_type();
-void set_data_type(std::vector<std::string>);
-std::string  get_data_type(int);
-void basic_type();
+//void loop(std::string (*func)(int,int));
+bool operator==( const csv_file& lhs);
+//std::string operator()(int , int );
+//csv_file operator()(int,int,int,int);
+//void collapse();
+void repair();
+void uppercase();
+
+//csv_file& operator=(const csv_file &);
+//void insert(std::string);
+//csv_file operator+(const csv_file& lhs);
+//csv_file operator*(const csv_file& lhs);
+
 
 private:
+
+siterator offset;
+std::vector<siterator> targets;
+bool file_is_OK;
 std::string file;
+siterator file_begin;
+siterator file_end;
 std::string file_temp;
 std::vector<siterator> indices;
-std::vector<char> whitelist;
-std::vector<std::string> data_type;
-bool  primary_key_unique;
-int primary_column;
-int rows,cols;	
-std::vector<std::string> field_types;
-std::vector<std::string> col_type;
-bool file_is_OK;
-std::vector<int> row_items;
-std::vector<bool> unique_col;
-std::vector<int> delete_row;
-std::vector<int> delete_col;
+std::vector<siterator> lindex;
+//std::vector<siterator> line_break;
+std::vector<int> errors;
+int rows,cols;
+int current_col;
 int size;
-std::vector<std::string> basic_types;
 };
