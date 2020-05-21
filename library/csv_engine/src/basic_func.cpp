@@ -77,7 +77,7 @@ std::vector<int> csv_file::index(char delimiter)
 		{	//std::cin>>k;
 			
 			indices.push_back(iter);
-			//lindex.push_back(iter+1);
+			
 				lindex.push_back(iter+1);
 			if (cols != i && cols < 0) { cols = i; }
 			if (cols != i && cols > 0)
@@ -124,7 +124,7 @@ std::vector<int> csv_file::index()
 //	std::cin>>l;
 
 	
-	char delimiter;
+	//char delimiter;
 	if(a==b && a==c){delimiter=';';}
 	if(a>b && a>c){delimiter=';';}
 	if(b>c && b>a){delimiter=',';}
@@ -617,3 +617,40 @@ std::cout<<"rows.."<<rows<<"  colums..."<<cols<<std::endl;
  return false;
 
 }
+
+
+std::string csv_file::line(int i)const
+	{
+
+	if (i < rows) {
+
+	siterator start = lindex[i-1];
+	siterator end = lindex[i]-1;
+	
+	
+		return(std::string(start , end));
+	
+	}
+	
+	else{
+		
+		i = rows; 
+		siterator start = lindex[i-1];
+		return(std::string(start ,file_end));
+		
+		}
+
+	}
+
+
+std::string csv_file::celll(int i,int j)const
+	{	std::string str;
+		std::istringstream stream(line(i));
+	for(int k=0;k<j;k++){std::getline(stream,str,delimiter);
+	
+	}
+
+	return(str);
+
+	}
+

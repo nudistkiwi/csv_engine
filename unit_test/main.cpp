@@ -30,6 +30,7 @@ int k;
 //char file[]="files.csv";
 
 std::string filess="files.csv";
+filess="DAL_DB-en.csv";
 char *filer= new char[filess.length()+1];
 copy(filess.begin(),filess.end(),filer);
 std::cout<<filer<<std::endl;
@@ -41,6 +42,18 @@ A.status();
 //A.clean();
 delete[] filer;
 std::string done;
+
+
+while(0==0){
+std::cin>>i;
+std::cin>>j;
+//std::string ad=A.celli,j);
+//char ls=ad[0];
+std::cout<<A.celll(i,j)<<std::endl;
+//std::cout<<int(ls)<<std::endl;
+
+}
+
 for(int k=1;k<=A.Nrows();k++){
 	std::cout<<A.cell(k,1)<<std::endl;
 
